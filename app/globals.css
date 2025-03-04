@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Kufam&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: light --default;
 }
 
 @theme {
+  --font-bungee: "Kufam", serif;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
