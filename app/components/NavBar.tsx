@@ -15,7 +15,7 @@ const NavBar = () => {
     { label: "Project Milestone", href: "/milestone" },
   ];
   return (
-    <nav className="navbar shadow-sm">
+    <nav className="navbar shadow-sm mb-5">
       <div className="container mx-auto flex">
         <div className="navbar-start">
           <div className="dropdown">
