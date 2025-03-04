@@ -15,7 +15,7 @@ const NavBar = () => {
     { label: "Project Milestone", href: "/milestone" },
   ];
   return (
-    <nav className=" navbar bg-base-100 shadow-sm">
+    <nav className="navbar shadow-sm">
       <div className="container mx-auto flex">
         <div className="navbar-start">
           <div className="dropdown">
@@ -24,7 +24,7 @@ const NavBar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-lg dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-lg dropdown-content bg-neutral rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               <li>
                 {links.map((link) => (
@@ -32,9 +32,9 @@ const NavBar = () => {
                     key={link.href}
                     href={link.href}
                     className={classnames({
-                      "text-zinc-900": link.href === currentPath,
-                      "text-zinc-500": link.href !== currentPath,
-                      "hover:text-zinc-800 transition-colors": true,
+                      "text-white": link.href === currentPath,
+                      "text-gray-400": link.href !== currentPath,
+                      "hover:text-white transition-colors": true,
                     })}
                   >
                     {link.label}
@@ -70,8 +70,8 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link href="#" className="btn">
-            Button
+          <Link href="#" className="btn btn-neutral">
+            Register
           </Link>
         </div>
       </div>

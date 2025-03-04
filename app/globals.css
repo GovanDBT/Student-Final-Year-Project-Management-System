@@ -1,25 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Kufam&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark;
+  themes: fantasy --default;
+}
+
+:root {
+  --primary: #fbf5e5;
+  --secondary: #171717;
 }
 
 @theme {
   --font-bungee: "Kufam", serif;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
