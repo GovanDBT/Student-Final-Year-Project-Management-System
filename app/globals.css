@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Kufam&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default;
+  themes: light --default, dark;
 }
 
 @theme {

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaBarsStaggered } from "react-icons/fa6";
+import { LuMoon, LuSun } from "react-icons/lu";
 import classnames from "classnames";
 
 const NavBar = () => {
@@ -65,7 +66,16 @@ const NavBar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end space-x-10">
+        <div className="flex cursor-pointer gap-2">
+          <LuSun size={20} />
+          <input
+            type="checkbox"
+            value="dark"
+            className="toggle theme-controller"
+          />
+          <LuMoon size={20} />
+        </div>
         <Link href="#" className="btn">
           Button
         </Link>
