@@ -14,18 +14,17 @@ datasource db {
 }
 
 model User {
-  id                 Int       @id @unique
-  email              String    @unique
+  id                 Int        @id @unique
+  email              String     @unique
   name               String
   password           String
   phone              Int?
   office             String?
-  major              String?
-  programme          String?
-  role               Role      @default(STUDENT)
-  projects           Project[] @relation("StudentProjects") // student projects
-  supervisedProjects Project[] @relation("SupervisorProjects") // supervisor's projects
-  isActive           Boolean   @default(true)
+  programme          Programme?
+  role               Role       @default(STUDENT)
+  projects           Project[]  @relation("StudentProjects") // student projects
+  supervisedProjects Project[]  @relation("SupervisorProjects") // supervisor's projects
+  isActive           Boolean    @default(true)
 }
 
 model Project {
@@ -52,4 +51,11 @@ enum ProjectStatus {
   APPROVED
   REJECTED
   COMPLETED
+}
+
+enum Programme {
+  BSC_COMPUTER_SCIENCE
+  BSC_INFORMATION_TECHNOLOGY
+  BSC_COMPUTING_WITH_FINANCE
+  BIS_COMPUTER_INFORMATION_SYSTEMS
 }
