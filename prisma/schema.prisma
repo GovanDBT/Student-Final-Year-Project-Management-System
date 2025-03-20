@@ -22,21 +22,24 @@ model User {
   office             String?
   programme          Programme?
   role               Role       @default(STUDENT)
-  projects           Project[]  @relation("StudentProjects") // student projects
-  supervisedProjects Project[]  @relation("SupervisorProjects") // supervisor's projects
   isActive           Boolean    @default(true)
+  // Relationships
+  project            Project?   @relation("StudentProjects") // student projects
+  supervisedProjects Project[]  @relation("SupervisorProjects") // supervisor's projects
 }
 
 model Project {
   id           Int           @unique @default(autoincrement())
   title        String
   description  String
-  student      User          @relation(name: "StudentProjects", fields: [studentId], references: [id])
-  supervisor   User?         @relation(name: "SupervisorProjects", fields: [supervisorId], references: [id])
+  status       ProjectStatus @default(PENDING)
   studentId    Int           @unique
   supervisorId Int?          @unique
-  created      DateTime      @default(now())
-  status       ProjectStatus @default(PENDING)
+  dateCreated  DateTime      @default(now())
+  dateUpdated  DateTime?     @updatedAt
+  // Relationships
+  student      User          @relation(name: "StudentProjects", fields: [studentId], references: [id])
+  supervisor   User?         @relation(name: "SupervisorProjects", fields: [supervisorId], references: [id])
 }
 
 enum Role {
