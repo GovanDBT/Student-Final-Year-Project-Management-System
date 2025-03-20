@@ -2,7 +2,7 @@ import React from "react";
 
 const LoginForm = () => {
   return (
-    <div className="bg-neutral p-10 rounded-lg flex-row">
+    <div className="bg-base-300 border-1 border-sky-100/10 p-8 rounded-lg">
       <h1 className="text-white text-4xl mb-2">Login to your Project</h1>
       <p className="text-white mb-3">
         Enter your credentials belows to manage your final year project with
@@ -12,7 +12,7 @@ const LoginForm = () => {
         <legend className="fieldset-legend text-white text-base">
           Your Email or ID
         </legend>
-        <label className="input validator">
+        <label className="input validator w-full">
           <svg
             className="h-[1em] opacity-50"
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ const LoginForm = () => {
         <legend className="fieldset-legend text-white text-base">
           Your Password
         </legend>
-        <label className="input validator">
+        <label className="input validator w-full">
           <svg
             className="h-[1em] opacity-50"
             xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@ const LoginForm = () => {
           At least one uppercase letter
         </p>
       </fieldset>
-      <button className="btn btn-accent">Login</button>
+      <button className="btn btn-primary w-full">Login</button>
     </div>
   );
 };
