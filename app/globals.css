@@ -5,9 +5,8 @@
 }
 
 :root {
-  --color-primary: #fbf5e5;
+  --color-primary: #a41c22;
   --color-secondary: #121212;
-  --color-accent: #a41c22
 }
 
 @theme {

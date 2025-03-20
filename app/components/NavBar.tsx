@@ -55,9 +55,9 @@ const NavBar = () => {
                   key={link.href}
                   href={link.href}
                   className={classnames({
-                    "text-zinc-900": link.href === currentPath,
-                    "text-zinc-500": link.href !== currentPath,
-                    "hover:text-zinc-800 transition-colors": true,
+                    "text-white": link.href === currentPath,
+                    "text-zinc-400": link.href !== currentPath,
+                    "hover:text-white transition-colors": true,
                   })}
                 >
                   {link.label}
@@ -67,7 +67,7 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link href="/register" className="btn">
+          <Link href="/register" className="btn btn-primary">
             Register Now
           </Link>
         </div>
