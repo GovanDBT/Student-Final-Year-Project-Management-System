@@ -2,16 +2,14 @@ import React from "react";
 
 const LoginForm = () => {
   return (
-    <div className="bg-base-300 border-1 border-sky-100/10 p-8 rounded-lg">
-      <h1 className="text-white text-4xl mb-2">Login to your Project</h1>
-      <p className="text-white mb-3">
+    <div className="bg-base-300 border-1 border-sky-100/10 p-8 rounded-lg max-h-fit">
+      <h1 className="text-4xl mb-2">Login to your Project</h1>
+      <p className="mb-3">
         Enter your credentials belows to manage your final year project with
         ease
       </p>
       <fieldset className="fieldset mb-5">
-        <legend className="fieldset-legend text-white text-base">
-          Your Email or ID
-        </legend>
+        <legend className="fieldset-legend text-base">Your Email or ID</legend>
         <label className="input validator w-full">
           <svg
             className="h-[1em] opacity-50"
@@ -32,9 +30,7 @@ const LoginForm = () => {
           <input type="email" placeholder="mail@site.com" required />
         </label>
         <div className="validator-hint hidden">Enter valid email address</div>
-        <legend className="fieldset-legend text-white text-base">
-          Your Password
-        </legend>
+        <legend className="fieldset-legend text-base">Your Password</legend>
         <label className="input validator w-full">
           <svg
             className="h-[1em] opacity-50"

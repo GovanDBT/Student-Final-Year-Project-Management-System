@@ -1,13 +1,13 @@
-import Image from "next/image";
 import NavBar from "./components/NavBar";
 import LoginForm from "./components/LoginForm";
 import SubmissionCountdown from "./components/SubmissionCountdown";
+import Announcement from "./components/Announcement";
 
 export default function Home() {
   return (
     <div>
       <NavBar />
-      <div className="grid grid-rows-2 gap-5 grid-cols-1 lg:grid-cols-[400px_minmax(900px,1fr)_600px] lg:grid-rows-1 container mx-auto">
+      <div className="grid grid-rows-auto gap-5 grid-cols-1 lg:grid-cols-[400px_minmax(900px,1fr)_600px] lg:grid-rows-1 container mx-auto">
         <LoginForm />
         <div>
           <div className="flex items-start gap-2 lg:gap-5 mb-8">
@@ -22,9 +22,12 @@ export default function Home() {
               desc="Presentation of project - including presentation slides, documentation, and implementation"
             />
           </div>
-          <h1 className="text-3xl border-b-1 pb-4 border-secondary/10">
-            Announcement
-          </h1>
+          <h1 className="text-3xl mb-6">Announcement</h1>
+          <div className="max-h-105 overflow-scroll p-3 border-1 border-secondary/10 rounded-lg">
+            <Announcement />
+            <Announcement />
+            <Announcement />
+          </div>
         </div>
       </div>
     </div>
