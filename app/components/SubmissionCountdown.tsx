@@ -8,11 +8,11 @@ interface Props {
 
 const SubmissionCountdown = ({ title, days, desc }: Props) => {
   return (
-    <div className="stats shadow">
+    <div className="stats border-1 border-sky-100/10">
       <div className="stat">
-        <div className="stat-title">{title}</div>
+        <div className="stat-title font-bold text-wrap">{title}</div>
         <div className="stat-value">{days} Days</div>
-        <div className="stat-desc">{desc}</div>
+        <div className="stat-desc text-wrap">{desc}</div>
       </div>
     </div>
   );
