@@ -22,7 +22,9 @@ export default function Home() {
               desc="Presentation of project - including presentation slides, documentation, and implementation"
             />
           </div>
-          <h1 className="text-3xl">Announcement</h1>
+          <h1 className="text-3xl border-b-1 pb-4 border-secondary/10">
+            Announcement
+          </h1>
         </div>
       </div>
     </div>

@@ -10,7 +10,8 @@ const NavBar = () => {
   const links = [
     { label: "Home", href: "/" },
     { label: "Supervisors", href: "/supervisors" },
-    { label: "Prerequisites", href: "/prerequisites" },
+    { label: "Proposals", href: "/proposals" },
+    { label: "Project Guide", href: "/guide" },
     { label: "Project Milestone", href: "/milestone" },
   ];
   return (
