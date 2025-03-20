@@ -7,7 +7,14 @@ const SupervisorsPage = () => {
     <>
       <NavBar />
       <div className="container mx-auto">
-        <h1 className="mb-5">Supervisors List</h1>
+        <div className="mb-5 max-w-3xl">
+          <h1>Supervisors List</h1>
+          <p>
+            The table below show a list of all supervisor for this current final
+            year project. This list is meant to be used by student to help them
+            get in contact with their supervisors
+          </p>
+        </div>
         <SupervisorTable />
       </div>
     </>

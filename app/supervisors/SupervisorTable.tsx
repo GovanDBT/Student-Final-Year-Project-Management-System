@@ -22,7 +22,7 @@ const SupervisorTable = async () => {
             <th>Phone</th>
             <th>Office</th>
             <th>Role</th>
-            <th>Number of Projects</th>
+            <th>Number of Students</th>
           </tr>
         </thead>
         <tbody>
