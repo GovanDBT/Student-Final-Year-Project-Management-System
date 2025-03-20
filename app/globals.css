@@ -1,12 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Kufam&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: fantasy --default;
+  themes: light --default, dark --prefersdark, dracula;
 }
 
 :root {
-  --primary: #fbf5e5;
-  --secondary: #171717;
+  --color-primary: #fbf5e5;
+  --color-secondary: #121212;
+  --color-accent: #a41c22
 }
 
 @theme {

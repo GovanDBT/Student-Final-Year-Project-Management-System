@@ -70,7 +70,7 @@ const LoginForm = () => {
           At least one uppercase letter
         </p>
       </fieldset>
-      <button className="btn btn-primary">Login</button>
+      <button className="btn btn-accent">Login</button>
     </div>
   );
 };

@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <NavBar />
-      <div className="grid grid-rows-2 gap-5 grid-cols-1 lg:grid-cols-[1fr_2fr] lg:grid-rows-1 container mx-auto">
+      <div className="grid grid-rows-2 gap-5 grid-cols-1 lg:grid-cols-[400px_minmax(900px,1fr)_600px] lg:grid-rows-1 container mx-auto">
         <LoginForm />
         <div>
           <div className="flex items-start gap-5 mb-8">
@@ -22,7 +22,7 @@ export default function Home() {
               desc="Presentation of project - including presentation slides, documentation, and implementation"
             />
           </div>
-          <h1 className="text-3xl">Announcements</h1>
+          <h1 className="text-3xl">Announcement</h1>
         </div>
       </div>
     </div>

@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaBarsStaggered } from "react-icons/fa6";
-import { LuMoon, LuSun } from "react-icons/lu";
 import classnames from "classnames";
 
 const NavBar = () => {
@@ -44,10 +43,8 @@ const NavBar = () => {
             </ul>
           </div>
           <Link href="/" className="btn btn-ghost text-xl space-x-2">
-            <Image src="/UBotswana.png" alt="UB logo" width={30} height={30} />
-            <h1 className="font-bungee text-2xl hidden md:flex">
-              Project Manager
-            </h1>
+            <Image src="/ub-logo.png" alt="UB logo" width={30} height={30} />
+            <h1 className="font-bungee text-2xl hidden md:flex">Project Hub</h1>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -70,8 +67,8 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link href="#" className="btn btn-neutral">
-            Register
+          <Link href="/register" className="btn">
+            Register Now
           </Link>
         </div>
       </div>
