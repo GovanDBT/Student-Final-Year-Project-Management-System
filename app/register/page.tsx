@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import NavBar from "../components/NavBar";
 
@@ -168,7 +169,12 @@ const RegistrationPage = () => {
               </div>
             </div>
 
-            <button className="btn btn-primary w-4/10">Submit</button>
+            <button
+              className="btn btn-primary w-4/10"
+              onClick={() => console.log("clicked")}
+            >
+              Submit
+            </button>
           </fieldset>
         </form>
       </div>
