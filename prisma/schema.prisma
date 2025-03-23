@@ -52,6 +52,7 @@ model User {
   password           String?
   image              String?
   office             String?
+  phone              String?    @unique
   isActive           Boolean    @default(true)
   // relationships
   programme          Programme?
@@ -76,6 +77,8 @@ model Project {
   // relationships
   student      User          @relation(name: "studentProject", fields: [studentId], references: [userId])
   supervisor   User?         @relation(name: "supervisorProjects", fields: [supervisorId], references: [userId])
+
+  @@map("projects")
 }
 
 model VerificationToken {

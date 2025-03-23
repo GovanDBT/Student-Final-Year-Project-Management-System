@@ -8,7 +8,7 @@ const SupervisorTable = async () => {
       },
     },
     include: {
-      supervisedProjects: true,
+      supervisorProjects: true,
     },
   });
   return (
@@ -33,7 +33,7 @@ const SupervisorTable = async () => {
               <td>{user.phone}</td>
               <td>{user.office}</td>
               <td>{user.role}</td>
-              <td>{user.supervisedProjects.length}</td>
+              <td>{user.supervisorProjects.length}</td>
             </tr>
           ))}
         </tbody>
