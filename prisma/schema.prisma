@@ -13,23 +13,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
 model User {
-  id                 Int        @id @unique
-  name               String
-  email              String     @unique
-  password           String
-  phone              Int?
+  id                 String     @id @default(cuid())
+  userId             Int?       @unique
+  name               String?
+  email              String?    @unique
+  emailVerified      DateTime?  @map("email_verified")
+  password           String?
+  image              String?
   office             String?
-  programme          Programme?
-  role               Role       @default(STUDENT)
   isActive           Boolean    @default(true)
-  // Relationships
-  project            Project?   @relation("StudentProjects") // student projects
-  supervisedProjects Project[]  @relation("SupervisorProjects") // supervisor's projects
+  // relationships
+  programme          Programme?
+  role               Role?      @default(STUDENT)
+  project            Project?   @relation("studentProject")
+  supervisorProjects Project[]  @relation("supervisorProjects")
+  accounts           Account[]
+  sessions           Session[]
+
+  @@map("users")
 }
 
 model Project {
-  id           Int           @unique @default(autoincrement())
+  id           Int           @id @unique @default(autoincrement())
   title        String
   description  String
   status       ProjectStatus @default(PENDING)
@@ -37,9 +73,18 @@ model Project {
   supervisorId Int?          @unique
   dateCreated  DateTime      @default(now())
   dateUpdated  DateTime?     @updatedAt
-  // Relationships
-  student      User          @relation(name: "StudentProjects", fields: [studentId], references: [id])
-  supervisor   User?         @relation(name: "SupervisorProjects", fields: [supervisorId], references: [id])
+  // relationships
+  student      User          @relation(name: "studentProject", fields: [studentId], references: [userId])
+  supervisor   User?         @relation(name: "supervisorProjects", fields: [supervisorId], references: [userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
 }
 
 enum Role {
@@ -60,5 +105,5 @@ enum Programme {
   BSC_COMPUTER_SCIENCE
   BSC_INFORMATION_TECHNOLOGY
   BSC_COMPUTING_WITH_FINANCE
-  BIS_COMPUTER_INFORMATION_SYSTEMS
+  BSC_COMPUTER_INFORMATION_SYSTEMS
 }
