@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import NavBar from "../components/NavBar";
+import NavBar from "../NavBar";
 
 const RegistrationPage = () => {
   return (

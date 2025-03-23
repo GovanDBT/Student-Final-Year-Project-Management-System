@@ -1,6 +1,11 @@
-import React from "react";
+"use client";
+import { signIn } from "next-auth/react";
 
 const LoginForm = () => {
+  const handleGoogleSignIn = async () => {
+    await signIn("google", { callbackUrl: "/dashboard" });
+  };
+
   return (
     <div className="bg-base-300 border-1 border-sky-100/10 p-8 rounded-lg max-h-fit">
       <h1 className="text-4xl mb-2">Login to your Project</h1>
@@ -67,6 +72,14 @@ const LoginForm = () => {
         </p>
       </fieldset>
       <button className="btn btn-primary w-full">Login</button>
+      <div className="divider">OR</div>
+      <button
+        type="button"
+        onClick={handleGoogleSignIn}
+        className="btn bg-white text-base-100 w-full"
+      >
+        Sign in with Google
+      </button>
     </div>
   );
 };

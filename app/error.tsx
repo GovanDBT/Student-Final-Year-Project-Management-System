@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { FaLinkSlash } from "react-icons/fa6";
 
 interface Props {
