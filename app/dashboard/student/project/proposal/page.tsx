@@ -1,7 +1,12 @@
 "use client";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import "easymde/dist/easymde.min.css";
 
 const ProjectProposalPage = () => {
+  const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+    ssr: false,
+  });
   return (
     <div className="container mx-auto">
       <div className="breadcrumbs text-sm">
@@ -19,26 +24,19 @@ const ProjectProposalPage = () => {
           placeholder="Project Title"
           className="input w-full"
         />
-        <textarea
-          className="textarea w-full"
-          placeholder="Problem Statement"
-        ></textarea>
-        <textarea
-          className="textarea w-full"
-          placeholder="Motivation"
-        ></textarea>
-        <textarea
-          className="textarea w-full"
-          placeholder="Proposed Solution"
-        ></textarea>
-        <textarea
-          className="textarea w-full"
-          placeholder="Objectives"
-        ></textarea>
-        <textarea
-          className="textarea w-full"
-          placeholder="Project Scope"
-        ></textarea>
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend">
+            <span className="text-lg">Project Description</span>
+            <span className="text-xm italic">
+              should include Problem Statement, Motivation, Proposed Solution,
+              Objective, and Project Scope
+            </span>
+          </legend>
+          <SimpleMDE
+            className="textarea w-full"
+            placeholder="Enter project Description"
+          ></SimpleMDE>
+        </fieldset>
         <button className="btn btn-primary">Submit Proposal</button>
       </div>
     </div>
