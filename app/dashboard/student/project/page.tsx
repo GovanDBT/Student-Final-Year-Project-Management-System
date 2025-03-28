@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const ProjectPage = () => {
@@ -22,7 +23,12 @@ const ProjectPage = () => {
         </svg>
         <span>You do not have a project proposal</span>
         <div>
-          <button className="btn btn-sm btn-primary">Submit Proposal</button>
+          <Link
+            href="/dashboard/student/project/proposal"
+            className="btn btn-sm btn-primary"
+          >
+            Submit Proposal
+          </Link>
         </div>
       </div>
       <h1 className="text-center">NO PROJECT YET</h1>
