@@ -71,14 +71,14 @@ model User {
 model Project {
   id           Int           @id @unique @default(autoincrement())
   title        String
-  description  String
+  description  String        @db.LongText
   status       ProjectStatus @default(PENDING)
-  studentId    Int           @unique
+  studentId    Int?          @unique
   supervisorId Int?          @unique
   dateCreated  DateTime      @default(now())
   dateUpdated  DateTime?     @updatedAt
   // relationships
-  student      User          @relation(name: "studentProject", fields: [studentId], references: [userId], onDelete: Cascade)
+  student      User?         @relation(name: "studentProject", fields: [studentId], references: [userId], onDelete: Cascade)
   supervisor   User?         @relation(name: "supervisorProjects", fields: [supervisorId], references: [userId], onDelete: Cascade)
   Submission   Submission[]
 

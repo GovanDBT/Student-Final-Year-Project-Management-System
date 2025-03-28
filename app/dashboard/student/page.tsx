@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
 import Link from "next/link";
 import { prisma } from "@/prisma/client";
 
@@ -12,7 +12,6 @@ export default async function Dashboard() {
       </h1>
       <div>
         <p>This is a Dashboard</p>
-        <Link href="/api/auth/signout">Sign out</Link>
       </div>
     </div>
   );

@@ -18,12 +18,12 @@ const NavBar = () => {
     { label: "Project Milestone", href: "/milestone" },
   ];
   const studentLinks = [
-    { label: "Dashboard", href: "/dashboard" },
-    { label: "My Project", href: "/project" },
-    { label: "Submissions", href: "/submission" },
+    { label: "Dashboard", href: "/dashboard/student" },
+    { label: "My Project", href: "/dashboard/student/project" },
+    { label: "Submissions", href: "/dashboard/student/submission" },
     { label: "Marks & Reviews", href: "#" },
-    { label: "Timeline", href: "/timeline" },
-    { label: "Past Projects", href: "/pastProjects" },
+    { label: "Timeline", href: "/dashboard/student/timeline" },
+    { label: "Past Projects", href: "/dashboard/student/pastProjects" },
   ];
   return (
     <nav className="navbar shadow-sm mb-5">
@@ -150,7 +150,7 @@ const NavBar = () => {
                   <a>Settings</a>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  <Link href="/api/auth/signout">Logout</Link>
                 </li>
               </ul>
             </div>
