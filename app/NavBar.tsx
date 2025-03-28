@@ -19,11 +19,11 @@ const NavBar = () => {
   ];
   const studentLinks = [
     { label: "Dashboard", href: "/dashboard" },
-    { label: "My Project", href: "#" },
-    { label: "Submissions", href: "#" },
+    { label: "My Project", href: "/project" },
+    { label: "Submissions", href: "/submission" },
     { label: "Marks & Reviews", href: "#" },
-    { label: "Timeline", href: "#" },
-    { label: "Past Projects", href: "#" },
+    { label: "Timeline", href: "/timeline" },
+    { label: "Past Projects", href: "/pastProjects" },
   ];
   return (
     <nav className="navbar shadow-sm mb-5">

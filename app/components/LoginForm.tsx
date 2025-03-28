@@ -57,7 +57,6 @@ const LoginForm = () => {
             type="password"
             required
             placeholder="Password"
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
           />
         </label>

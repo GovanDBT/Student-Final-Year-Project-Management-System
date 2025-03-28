@@ -44,23 +44,26 @@ model Session {
 }
 
 model User {
-  id                 String     @id @default(cuid())
-  userId             Int?       @unique
+  id                 String        @id @default(cuid())
+  userId             Int?          @unique
   name               String?
-  email              String?    @unique
-  emailVerified      DateTime?  @map("email_verified")
+  email              String?       @unique
+  emailVerified      DateTime?     @map("email_verified")
   password           String?
   image              String?
   office             String?
-  phone              String?    @unique
-  isActive           Boolean    @default(true)
+  phone              String?       @unique
+  isActive           Boolean       @default(true)
   // relationships
   programme          Programme?
-  role               Role?      @default(STUDENT)
-  project            Project?   @relation("studentProject")
-  supervisorProjects Project[]  @relation("supervisorProjects")
+  role               Role?         @default(STUDENT)
+  project            Project?      @relation("studentProject")
+  supervisorProjects Project[]     @relation("supervisorProjects")
   accounts           Account[]
   sessions           Session[]
+  Feedback           Feedback?
+  Deadline           Deadline?
+  Announcement       Announcement?
 
   @@map("users")
 }
@@ -75,10 +78,63 @@ model Project {
   dateCreated  DateTime      @default(now())
   dateUpdated  DateTime?     @updatedAt
   // relationships
-  student      User          @relation(name: "studentProject", fields: [studentId], references: [userId])
-  supervisor   User?         @relation(name: "supervisorProjects", fields: [supervisorId], references: [userId])
+  student      User          @relation(name: "studentProject", fields: [studentId], references: [userId], onDelete: Cascade)
+  supervisor   User?         @relation(name: "supervisorProjects", fields: [supervisorId], references: [userId], onDelete: Cascade)
+  Submission   Submission[]
 
   @@map("projects")
+}
+
+model Submission {
+  id            Int       @id @unique @default(autoincrement())
+  projectId     Int       @unique
+  fileURL       String
+  description   String
+  dateSubmitted DateTime  @default(now())
+  // relationships
+  project       Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  Feedback      Feedback?
+
+  @@map("submissions")
+}
+
+model Feedback {
+  id            Int        @id @unique @default(autoincrement())
+  supervisorId  String     @unique
+  submissionId  Int        @unique
+  comment       String
+  dateSubmitted DateTime   @default(now())
+  dateUpdated   DateTime   @updatedAt
+  // relationships
+  supervisor    User       @relation(fields: [supervisorId], references: [id], onDelete: Cascade)
+  submission    Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+
+  @@map("feedbacks")
+}
+
+model Deadline {
+  id            Int      @id @unique @default(autoincrement())
+  coordinatorId String   @unique
+  title         String
+  description   String?
+  deadlineDate  DateTime
+  // relationships
+  coordinator   User     @relation(fields: [coordinatorId], references: [id], onDelete: Cascade)
+
+  @@map("deadlines")
+}
+
+model Announcement {
+  id            Int      @id @unique @default(autoincrement())
+  coordinatorId String   @unique
+  title         String
+  description   String
+  dateCreated   DateTime @default(now())
+  dateUpdated   DateTime @updatedAt
+  // relationships
+  coordinator   User     @relation(fields: [coordinatorId], references: [id], onDelete: Cascade)
+
+  @@map("announcements")
 }
 
 model VerificationToken {
