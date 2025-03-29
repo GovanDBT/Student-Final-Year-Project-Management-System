@@ -100,6 +100,14 @@ const ProjectProposalPage = () => {
         {errors.description && (
           <p className="text-red-600">{errors.description.message}</p>
         )}
+        <div>
+          <select className="select">
+            <option disabled={true}>Select Supervisor</option>
+            <option value="1">Crimson</option>
+            <option>Amber</option>
+            <option>Velvet</option>
+          </select>
+        </div>
         <button className="btn btn-primary">Submit Proposal</button>
       </form>
     </div>
