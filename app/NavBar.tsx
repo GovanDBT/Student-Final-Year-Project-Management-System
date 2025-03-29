@@ -5,11 +5,17 @@ import { usePathname } from "next/navigation";
 import { FaBarsStaggered } from "react-icons/fa6";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 const NavBar = () => {
   const { status, data: session } = useSession();
   const currentPath = usePathname();
   if (status === "loading") return null;
+
+  const handleLogout = () => {
+    signOut({ callbackUrl: "/" }); // Redirect to home page after logout
+  };
+
   const links = [
     { label: "Home", href: "/" },
     { label: "Supervisors", href: "/supervisors" },
@@ -150,7 +156,7 @@ const NavBar = () => {
                   <a>Settings</a>
                 </li>
                 <li>
-                  <Link href="/api/auth/signout">Logout</Link>
+                  <button onClick={handleLogout}>Logout</button>
                 </li>
               </ul>
             </div>

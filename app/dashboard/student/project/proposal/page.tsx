@@ -23,7 +23,7 @@ const ProjectProposalPage = () => {
     staleTime: 60 * 1000,
     retry: 3,
   });
-  if (error) return null;
+  if (error) return <p>Something failed</p>;
   // function to make our editor compatible with our browser
   const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
     ssr: false,
@@ -111,7 +111,7 @@ const ProjectProposalPage = () => {
         )}
         <fieldset className="fieldset">
           <legend className="fieldset-legend text-lg">Select Supervisor</legend>
-          <select className="select">
+          <select className="select" {...register("supervisorId")}>
             {supervisors?.map((supervisor) => (
               <option key={supervisor.id} value={supervisor.id}>
                 {supervisor.name}
