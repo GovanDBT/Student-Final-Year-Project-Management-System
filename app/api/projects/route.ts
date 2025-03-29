@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
-import { z } from 'zod';
-
-// Input Validation
-const createProjectSchema =  z.object({
-    title: z.string().min(1, 'project title is required').max(255),
-    description: z.string().min(1, 'project description is required')
-})
+import { createProjectSchema } from "../../validationSchema";
 
 export async function POST(request: NextRequest){
     const body = await request.json(); // create request

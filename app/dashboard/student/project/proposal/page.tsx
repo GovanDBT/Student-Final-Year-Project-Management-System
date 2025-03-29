@@ -6,21 +6,28 @@ import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createProjectSchema } from "@/app/validationSchema";
+import { z } from "zod";
 
-interface ProjectForm {
-  title: string;
-  description: string;
-}
+type ProjectForm = z.infer<typeof createProjectSchema>;
 
 const ProjectProposalPage = () => {
-  const router = useRouter();
-  const [error, setError] = useState("");
+  const router = useRouter(); // router
+  const [error, setError] = useState(""); // error hook
   // function to make our editor compatible with our browser
   const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
     ssr: false,
   });
   // react hook forms
-  const { register, control, handleSubmit } = useForm<ProjectForm>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ProjectForm>({
+    resolver: zodResolver(createProjectSchema),
+  });
   return (
     <div className="container mx-auto">
       <div className="breadcrumbs text-sm">
@@ -67,6 +74,9 @@ const ProjectProposalPage = () => {
           className="input w-full"
           {...register("title")}
         />
+        {errors.title && (
+          <p className="text-red-600 text-sm">{errors.title.message}</p>
+        )}
         <fieldset className="fieldset">
           <legend className="fieldset-legend">
             <span className="text-lg">Project Description</span>
@@ -87,6 +97,9 @@ const ProjectProposalPage = () => {
             )}
           />
         </fieldset>
+        {errors.description && (
+          <p className="text-red-600">{errors.description.message}</p>
+        )}
         <button className="btn btn-primary">Submit Proposal</button>
       </form>
     </div>
