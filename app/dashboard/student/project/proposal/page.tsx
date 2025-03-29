@@ -5,29 +5,29 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProjectSchema } from "@/app/validationSchema";
 import { z } from "zod";
 import { User } from "@prisma/client";
+import { useQuery } from "@tanstack/react-query";
 
 type ProjectForm = z.infer<typeof createProjectSchema>;
 
 const ProjectProposalPage = () => {
   const router = useRouter(); // router
-  const [error, setError] = useState(""); // error hook
-  const [supervisors, setSupervisors] = useState<User[]>([]);
+  const [fieldError, setFieldError] = useState(""); // error hook
+  const { data: supervisors, error } = useQuery<User[]>({
+    queryKey: ["supervisors"],
+    queryFn: () => axios.get("/api/users/supervisors").then((res) => res.data),
+    staleTime: 60 * 1000,
+    retry: 3,
+  });
+  if (error) return null;
   // function to make our editor compatible with our browser
   const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
     ssr: false,
   });
-  useEffect(() => {
-    const fetchSupervisors = async () => {
-      const { data } = await axios.get<User[]>("/api/users/supervisors");
-      setSupervisors(data);
-    };
-    fetchSupervisors();
-  }, []);
   // react hook forms
   const {
     register,
@@ -47,7 +47,7 @@ const ProjectProposalPage = () => {
           <li>Project Proposal</li>
         </ul>
       </div>
-      {error && (
+      {fieldError && (
         <div role="alert" className="alert alert-error my-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ const ProjectProposalPage = () => {
               d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span>{error}</span>
+          <span>{fieldError}</span>
         </div>
       )}
       <h1>Final Year Project Proposal Form</h1>
@@ -72,7 +72,7 @@ const ProjectProposalPage = () => {
             await axios.post("/api/projects", data);
             router.push("/dashboard/student/project");
           } catch (error) {
-            setError("An unexpected error has occurred");
+            setFieldError("An unexpected error has occurred");
           }
         })}
         className="space-y-5 my-5"
@@ -112,7 +112,7 @@ const ProjectProposalPage = () => {
         <fieldset className="fieldset">
           <legend className="fieldset-legend text-lg">Select Supervisor</legend>
           <select className="select">
-            {supervisors.map((supervisor) => (
+            {supervisors?.map((supervisor) => (
               <option key={supervisor.id} value={supervisor.id}>
                 {supervisor.name}
               </option>
