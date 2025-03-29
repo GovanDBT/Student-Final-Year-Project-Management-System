@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface ProjectForm {
   title: string;
@@ -13,6 +14,7 @@ interface ProjectForm {
 
 const ProjectProposalPage = () => {
   const router = useRouter();
+  const [error, setError] = useState("");
   // function to make our editor compatible with our browser
   const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
     ssr: false,
@@ -29,11 +31,33 @@ const ProjectProposalPage = () => {
           <li>Project Proposal</li>
         </ul>
       </div>
+      {error && (
+        <div role="alert" className="alert alert-error my-5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 shrink-0 stroke-current"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>{error}</span>
+        </div>
+      )}
       <h1>Final Year Project Proposal Form</h1>
       <form
         onSubmit={handleSubmit(async (data) => {
-          await axios.post("/api/projects", data);
-          router.push("/dashboard/student/project");
+          try {
+            await axios.post("/api/projects", data);
+            router.push("/dashboard/student/project");
+          } catch (error) {
+            setError("An unexpected error has occurred");
+          }
         })}
         className="space-y-5 my-5"
       >

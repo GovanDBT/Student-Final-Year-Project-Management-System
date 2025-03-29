@@ -4,14 +4,14 @@ import { z } from 'zod';
 
 // Input Validation
 const createProjectSchema =  z.object({
-    title: z.string().min(1).max(255),
-    description: z.string().min(1)
+    title: z.string().min(1, 'project title is required').max(255),
+    description: z.string().min(1, 'project description is required')
 })
 
 export async function POST(request: NextRequest){
     const body = await request.json(); // create request
     const validation = createProjectSchema.safeParse(body); // validates request
-    if (!validation.success) return NextResponse.json(validation.error.errors, { status: 400 }); // if request validation fails
+    if (!validation.success) return NextResponse.json(validation.error.format(), { status: 400 }); // if request validation fails
 
     // if validation is successful, create new project
     const newProject = await prisma.project.create({
