@@ -24,7 +24,7 @@ const ProposalTable = async () => {
         <tbody>
           {proposals.map((proposal) => (
             <tr key={proposal.id}>
-              <td>{proposal.student.name}</td>
+              <td>{proposal.student?.name}</td>
               <td>{proposal.studentId}</td>
               <td>{proposal.supervisor?.name}</td>
               <td>{proposal.title}</td>
