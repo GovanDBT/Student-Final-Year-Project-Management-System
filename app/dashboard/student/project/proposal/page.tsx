@@ -5,20 +5,29 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProjectSchema } from "@/app/validationSchema";
 import { z } from "zod";
+import { User } from "@prisma/client";
 
 type ProjectForm = z.infer<typeof createProjectSchema>;
 
 const ProjectProposalPage = () => {
   const router = useRouter(); // router
   const [error, setError] = useState(""); // error hook
+  const [supervisors, setSupervisors] = useState<User[]>([]);
   // function to make our editor compatible with our browser
   const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
     ssr: false,
   });
+  useEffect(() => {
+    const fetchSupervisors = async () => {
+      const { data } = await axios.get<User[]>("/api/users/supervisors");
+      setSupervisors(data);
+    };
+    fetchSupervisors();
+  }, []);
   // react hook forms
   const {
     register,
@@ -100,14 +109,16 @@ const ProjectProposalPage = () => {
         {errors.description && (
           <p className="text-red-600">{errors.description.message}</p>
         )}
-        <div>
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend text-lg">Select Supervisor</legend>
           <select className="select">
-            <option disabled={true}>Select Supervisor</option>
-            <option value="1">Crimson</option>
-            <option>Amber</option>
-            <option>Velvet</option>
+            {supervisors.map((supervisor) => (
+              <option key={supervisor.id} value={supervisor.id}>
+                {supervisor.name}
+              </option>
+            ))}
           </select>
-        </div>
+        </fieldset>
         <button className="btn btn-primary">Submit Proposal</button>
       </form>
     </div>
