@@ -20,12 +20,15 @@ export default async function RedirectPage() {
   if (user?.role === "SUPERVISOR") {
     // Redirect to the supervisor dashboard
     redirect("/dashboard/supervisor");
-  } else if (user?.role === "STUDENT") {
+  } else if (user?.role === "COORDINATOR") {
+    // Redirect to the coordinator dashboard
+    redirect("/dashboard/coordinator");
+  } else if (user?.role === "ADMIN") {
+    // Redirect to the admin dashboard
+    redirect("/dashboard/admin");
+  } else {
     // Redirect to the student dashboard
     redirect("/dashboard/student");
-  } else {
-    // Redirect to a fallback page or show an error if the role is invalid
-    redirect("/");
   }
 
   return null; // This will never be rendered because of the redirects

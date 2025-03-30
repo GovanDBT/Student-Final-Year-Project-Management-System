@@ -1,80 +1,77 @@
 "use client";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
-  const handleGoogleSignIn = async () => {
-    await signIn("google", { callbackUrl: "/dashboard" });
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Attempt to sign in using the credentials provider
+    const result = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (result?.error) {
+      setError("Invalid email or password. Please try again.");
+    } else {
+      // Redirect to the dashboard after successful login
+      router.push("/dashboard");
+    }
   };
 
   return (
     <div className="bg-base-300 border-1 border-sky-100/10 p-8 rounded-lg max-h-fit">
       <h1 className="text-4xl mb-2">Login to your Project</h1>
       <p className="mb-3">
-        Enter your credentials belows to manage your final year project with
-        ease
+        Enter your credentials below to manage your final year project with
+        ease.
       </p>
-      <fieldset className="fieldset mb-5">
-        <legend className="fieldset-legend text-base">Your Email or ID</legend>
-        <label className="input validator w-full">
-          <svg
-            className="h-[1em] opacity-50"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <g
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2.5"
-              fill="none"
-              stroke="currentColor"
-            >
-              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-            </g>
-          </svg>
-          <input type="email" placeholder="mail@site.com" required />
-        </label>
-        <div className="validator-hint hidden">Enter valid email address</div>
-        <legend className="fieldset-legend text-base">Your Password</legend>
-        <label className="input validator w-full">
-          <svg
-            className="h-[1em] opacity-50"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <g
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2.5"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
-              <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
-            </g>
-          </svg>
-          <input
-            type="password"
-            required
-            placeholder="Password"
-            title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-          />
-        </label>
-        <p className="validator-hint hidden">
-          Must be more than 8 characters, including
-          <br />
-          At least one number
-          <br />
-          At least one lowercase letter
-          <br />
-          At least one uppercase letter
-        </p>
-      </fieldset>
-      <button className="btn btn-primary w-full">Login</button>
+      {error && (
+        <div className="alert alert-error mb-3">
+          <span>{error}</span>
+        </div>
+      )}
+      <form onSubmit={handleSubmit}>
+        <fieldset className="fieldset mb-5">
+          <legend className="fieldset-legend text-base">Your Email</legend>
+          <label className="input validator w-full">
+            <input
+              type="email"
+              placeholder="mail@site.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+        </fieldset>
+        <fieldset className="fieldset mb-5">
+          <legend className="fieldset-legend text-base">Your Password</legend>
+          <label className="input validator w-full">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+        </fieldset>
+        <button type="submit" className="btn btn-primary w-full">
+          Login
+        </button>
+      </form>
       <div className="divider">OR</div>
       <button
         type="button"
-        onClick={handleGoogleSignIn}
+        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
         className="btn bg-white text-base-100 w-full"
       >
         Sign in with Google

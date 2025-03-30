@@ -11,7 +11,7 @@ export default async function Dashboard() {
         👋 Hello {session && <span>{session.user!.name}</span>}
       </h1>
       <div>
-        <p>This is a supervisors dashboard</p>
+        <p>This is a coordinator dashboard page</p>
       </div>
     </div>
   );
