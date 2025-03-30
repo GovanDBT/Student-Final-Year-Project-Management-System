@@ -23,7 +23,7 @@ const ProjectProposalPage = () => {
     staleTime: 60 * 1000,
     retry: 3,
   });
-  if (error) return <p>Something failed</p>;
+  if (error) return null;
   // function to make our editor compatible with our browser
   const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
     ssr: false,
