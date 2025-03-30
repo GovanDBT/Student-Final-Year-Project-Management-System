@@ -22,6 +22,7 @@ const NavBar = () => {
     { label: "Proposals", href: "/proposals" },
     { label: "Project Guide", href: "/guide" },
     { label: "Project Milestone", href: "/milestone" },
+    { label: "Registration", href: "/register" },
   ];
   const studentLinks = [
     { label: "Dashboard", href: "/dashboard/student" },
