@@ -3,7 +3,7 @@ import { signIn } from "next-auth/react";
 
 const LoginForm = () => {
   const handleGoogleSignIn = async () => {
-    await signIn("google", { callbackUrl: "/dashboard/student" });
+    await signIn("google", { callbackUrl: "/dashboard" });
   };
 
   return (
