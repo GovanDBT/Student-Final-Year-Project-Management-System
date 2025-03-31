@@ -2,6 +2,7 @@ import { prisma } from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import classnames from "classnames";
+import Link from "next/link";
 
 const StudentsTable = async () => {
   const session = await getServerSession(authOptions);
@@ -41,7 +42,11 @@ const StudentsTable = async () => {
             <tr key={project.id}>
               <td>{project.student?.name}</td>
               <td>{project.studentId}</td>
-              <td>{project.title}</td>
+              <td>
+                <Link href={`/dashboard/supervisor/projects/${project.id}`}>
+                  {project.title}
+                </Link>
+              </td>
               <td>{project.description}</td>
               <td>{project.dateCreated.toLocaleDateString()}</td>
               <td
