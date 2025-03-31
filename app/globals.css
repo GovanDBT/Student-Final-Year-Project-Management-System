@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Kufam&display=swap");
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark, dracula;
 }

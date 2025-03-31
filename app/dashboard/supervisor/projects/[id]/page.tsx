@@ -1,5 +1,8 @@
 import { prisma } from "@/prisma/client";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import classnames from "classnames";
+import ReactMarkdown from "react-markdown";
 
 interface Props {
   params: { id: string };
@@ -10,22 +13,79 @@ const ProjectDetailsPage = async ({ params }: Props) => {
     where: { id: parseInt(params.id) },
     include: {
       student: {
-        select: { name: true, email: true, phone: true, programme: true },
+        select: {
+          name: true,
+          email: true,
+          phone: true,
+          programme: true,
+          userId: true,
+        },
       },
     },
   });
   if (!project) return notFound();
   return (
-    <div>
-      <p>{project.student?.name}</p>
-      <p>{project.title}</p>
-      <p>{project.description}</p>
-      <p>{project.student?.email}</p>
-      <p>{project.student?.phone}</p>
-      <p>{project.student?.programme}</p>
-      <p>{project.status}</p>
-      <p>{project.dateCreated.toLocaleDateString()}</p>
-      <p>{project.dateUpdated?.toLocaleDateString()}</p>
+    <div className="container mx-auto">
+      <div className="breadcrumbs text-sm mb-2">
+        <ul>
+          <li>
+            <Link className="link link-success" href="/dashboard/supervisor">
+              Dashboard
+            </Link>
+          </li>
+          <li>Project ID: {project.id}</li>
+        </ul>
+      </div>
+      <h1 className="text-5xl">
+        {project.title}{" "}
+        <span className="btn text-sm italic">by: {project.student?.name}</span>
+      </h1>
+      <div className="flex gap-10 mt-2 mb-5">
+        <p
+          className={classnames({
+            "badge-warning": project.status === "PENDING",
+            "badge-success": project.status === "APPROVED",
+            "badge-error": project.status === "REJECTED",
+            "badge-info": project.status === "COMPLETED",
+            "badge badge-soft": true,
+          })}
+        >
+          {project.status}
+        </p>
+      </div>
+      <p>
+        <span className="font-bold">Student ID:</span> {project.student?.userId}
+      </p>
+      <div className="divider my-1"></div>
+      <p>
+        <span className="font-bold">Student Email:</span>{" "}
+        {project.student?.email}
+      </p>
+      <div className="divider my-1"></div>
+      <p>
+        <span className="font-bold">Phone Number:</span>{" "}
+        {project.student?.phone}
+      </p>
+      <div className="divider my-1"></div>
+      <p>
+        <span className="font-bold">Programme:</span>{" "}
+        {project.student?.programme}
+      </p>
+      <div className="divider my-1"></div>
+      <p>
+        <span className="font-bold">Date Created:</span>{" "}
+        {project.dateCreated.toLocaleDateString()}
+      </p>
+      <div className="divider my-1"></div>
+      <p>
+        <span className="font-bold">Last Update:</span>{" "}
+        {project.dateUpdated?.toLocaleDateString()}
+      </p>
+      <div className="divider my-1"></div>
+      <p className="font-bold mt-4 mb-1">Project Description:</p>
+      <div className="prose card bg-base-200 shadow-sm p-5 border-1 border-white/10 max-w-none mb-5">
+        <ReactMarkdown>{project.description}</ReactMarkdown>
+      </div>
     </div>
   );
 };

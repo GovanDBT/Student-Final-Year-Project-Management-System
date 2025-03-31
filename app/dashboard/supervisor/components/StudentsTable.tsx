@@ -29,33 +29,47 @@ const StudentsTable = async () => {
         {/* head */}
         <thead>
           <tr>
+            <th>Project Title</th>
             <th>Student Name</th>
-            <th>Student ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Date Submitted</th>
-            <th>Status</th>
+            <th className="hidden md:table-cell">Student ID</th>
+            <th className="hidden md:table-cell">Date Submitted</th>
+            <th className="hidden md:table-cell">Status</th>
           </tr>
         </thead>
         <tbody>
           {projects.map((project) => (
             <tr key={project.id}>
-              <td>{project.student?.name}</td>
-              <td>{project.studentId}</td>
               <td>
-                <Link href={`/dashboard/supervisor/projects/${project.id}`}>
+                <Link
+                  className="link link-success"
+                  href={`/dashboard/supervisor/projects/${project.id}`}
+                >
                   {project.title}
                 </Link>
+                <div
+                  className={classnames({
+                    "badge-warning": project.status === "PENDING",
+                    "badge-success": project.status === "APPROVED",
+                    "badge-error": project.status === "REJECTED",
+                    "badge-info": project.status === "COMPLETED",
+                    "badge badge-soft badge-xs mt-2 block md:hidden": true,
+                  })}
+                >
+                  {project.status}
+                </div>
               </td>
-              <td>{project.description}</td>
-              <td>{project.dateCreated.toLocaleDateString()}</td>
+              <td>{project.student?.name}</td>
+              <td className="hidden md:table-cell">{project.studentId}</td>
+              <td className="hidden md:table-cell">
+                {project.dateCreated.toLocaleDateString()}
+              </td>
               <td
                 className={classnames({
                   "badge-warning": project.status === "PENDING",
                   "badge-success": project.status === "APPROVED",
                   "badge-error": project.status === "REJECTED",
                   "badge-info": project.status === "COMPLETED",
-                  "badge badge-soft mt-2 ml-4": true,
+                  "badge badge-soft hidden md:badge mt-2 ml-4 ": true,
                 })}
               >
                 {project.status}
