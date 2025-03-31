@@ -23,7 +23,7 @@ const StudentsTable = async () => {
   });
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 my-5">
       <table className="table table-zebra">
         {/* head */}
         <thead>

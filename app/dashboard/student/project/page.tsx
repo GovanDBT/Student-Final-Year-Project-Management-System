@@ -12,6 +12,13 @@ export default async function ProjectPage() {
 
   const project = await prisma.project.findUnique({
     where: { studentId: currentUserId?.userId ?? undefined },
+    include: {
+      supervisor: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
   return (
     <div className="container mx-auto">
@@ -48,7 +55,13 @@ export default async function ProjectPage() {
         </div>
       )}
       {project?.studentId && (
-        <h1 className="text-center">Project name: {project.title}</h1>
+        <div className="space-y-5">
+          <h3>Project Title: {project.title}</h3>
+          <h3>Project Description: {project.description}</h3>
+          <h3>Project Supervisor: {project.supervisor.name}</h3>
+          <h3>Project Status: {project.status}</h3>
+          <h3>Date Created: {project.dateCreated.toLocaleDateString()}</h3>
+        </div>
       )}
     </div>
   );
