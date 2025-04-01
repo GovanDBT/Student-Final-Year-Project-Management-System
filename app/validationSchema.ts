@@ -7,6 +7,12 @@ export const createProjectSchema = z.object({
     supervisorId: z.string().min(1, 'Project Supervisor is Required!')
 });
 
+export const updateProjectSchema = z.object({
+  title: z.string().min(1, 'Project Title is Required!').max(255).optional(),
+  description: z.string().min(1, 'Project Description is Required!').optional(),
+  status: z.string()
+})
+
 // User Schema
 export const createUserSchema = z.object({
   firstname: z.string().min(1, "First name is required"),
