@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import classnames from "classnames";
 import ReactMarkdown from "react-markdown";
+import ResponseModal from "../../components/ResponseModal";
 
 interface Props {
   params: { id: string };
@@ -36,10 +37,18 @@ const ProjectDetailsPage = async ({ params }: Props) => {
           <li>Project ID: {project.id}</li>
         </ul>
       </div>
-      <h1 className="text-5xl">
-        {project.title}{" "}
-        <span className="btn text-sm italic">by: {project.student?.name}</span>
-      </h1>
+      <div className="flex justify-between">
+        <h1 className="text-5xl">
+          {project.title}{" "}
+          <span className="btn text-sm italic">
+            by: {project.student?.name}
+          </span>
+        </h1>
+        <ResponseModal
+          projectId={project.id}
+          author={project.student?.name ?? ""}
+        />
+      </div>
       <div className="flex gap-10 mt-2 mb-5">
         <p
           className={classnames({
