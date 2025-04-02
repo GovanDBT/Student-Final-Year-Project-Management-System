@@ -3,6 +3,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { createCommentSchema } from "@/app/validationSchema";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+type CommentForm = z.infer<typeof createCommentSchema>;
 
 interface Props {
   projectId: number;
@@ -59,6 +64,7 @@ const ResponseModal = ({ projectId, author }: Props) => {
             onSubmit={handleSubmit(async (data) => {
               try {
                 await axios.patch("/api/projects/" + projectId, data);
+                await axios.post("/api/projects/" + projectId, data);
                 router.refresh();
               } catch (error) {
                 setFieldError("An unexpected error has occurred");
@@ -82,6 +88,7 @@ const ResponseModal = ({ projectId, author }: Props) => {
               <textarea
                 className="textarea h-24 w-full"
                 placeholder="Comment on students project"
+                {...register("comment")}
               ></textarea>
               <div className="fieldset-label">Optional</div>
             </fieldset>

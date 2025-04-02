@@ -32,3 +32,8 @@ export const createUserSchema = z.object({
   message: "Passwords do not match",
   path: ["confirmPassword"],
 });
+
+// Comment Schema
+export const createCommentSchema = z.object({
+    comment: z.string().min(1, 'Comment is Required!'),
+});
