@@ -36,4 +36,5 @@ export const createUserSchema = z.object({
 // Comment Schema
 export const createCommentSchema = z.object({
     comment: z.string().min(1, 'Comment is Required!'),
+    status: z.enum(["PENDING", "APPROVED", "REJECTED", "COMPLETED"]),
 });

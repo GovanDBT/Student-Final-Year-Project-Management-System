@@ -17,7 +17,13 @@ interface Props {
 const ResponseModal = ({ projectId, author }: Props) => {
   const [fieldError, setFieldError] = useState(""); // error hook
   const router = useRouter(); // router
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CommentForm>({
+    resolver: zodResolver(createCommentSchema),
+  });
   return (
     <div>
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
@@ -90,8 +96,10 @@ const ResponseModal = ({ projectId, author }: Props) => {
                 placeholder="Comment on students project"
                 {...register("comment")}
               ></textarea>
-              <div className="fieldset-label">Optional</div>
             </fieldset>
+            {errors.comment && (
+              <p className="text-red-600 text-sm">{errors.comment?.message}</p>
+            )}
             <button type="submit" className="btn btn-primary">
               Sent Response
             </button>

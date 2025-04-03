@@ -89,13 +89,13 @@ model Project {
 
 model Comment {
   id          Int      @id @unique @default(autoincrement())
-  comment     String   @db.LongText
-  projectId   Int
-  userId      String
+  comment     String?  @db.LongText
+  projectId   Int?
+  userId      String?
   dateCreated DateTime @default(now())
   // relationships
-  project     Project  @relation(fields: [projectId], references: [id])
-  user        User     @relation(fields: [userId], references: [id])
+  project     Project? @relation(fields: [projectId], references: [id])
+  user        User?    @relation(fields: [userId], references: [id])
 
   @@map("comments")
 }

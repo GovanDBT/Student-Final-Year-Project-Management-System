@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import classnames from "classnames";
 import ReactMarkdown from "react-markdown";
 import ResponseModal from "../../components/ResponseModal";
+import CommentsCard from "../../components/CommentsCard";
 
 interface Props {
   params: { id: string };
@@ -25,6 +26,18 @@ const ProjectDetailsPage = async ({ params }: Props) => {
     },
   });
   if (!project) return notFound();
+
+  const comments = await prisma.comment.findMany({
+    where: { userId: project.supervisorId },
+    include: {
+      user: {
+        select: { name: true },
+      },
+    },
+    orderBy: {
+      dateCreated: "desc",
+    },
+  });
   return (
     <div className="container mx-auto">
       <div className="breadcrumbs text-sm mb-2">
@@ -49,18 +62,21 @@ const ProjectDetailsPage = async ({ params }: Props) => {
           author={project.student?.name ?? ""}
         />
       </div>
-      <div className="flex gap-10 mt-2 mb-5">
-        <p
-          className={classnames({
-            "badge-warning": project.status === "PENDING",
-            "badge-success": project.status === "APPROVED",
-            "badge-error": project.status === "REJECTED",
-            "badge-info": project.status === "COMPLETED",
-            "badge badge-soft": true,
-          })}
-        >
-          {project.status}
-        </p>
+      <div className="flex justify-between">
+        <div className="flex gap-10 mt-2 mb-5">
+          <p
+            className={classnames({
+              "badge-warning": project.status === "PENDING",
+              "badge-success": project.status === "APPROVED",
+              "badge-error": project.status === "REJECTED",
+              "badge-info": project.status === "COMPLETED",
+              "badge badge-soft": true,
+            })}
+          >
+            {project.status}
+          </p>
+        </div>
+        <p className="font-bold mt-2">{comments.length} comments</p>
       </div>
       <p>
         <span className="font-bold">Student ID:</span> {project.student?.userId}
@@ -94,6 +110,17 @@ const ProjectDetailsPage = async ({ params }: Props) => {
       <p className="font-bold mt-4 mb-1">Project Description:</p>
       <div className="prose card bg-base-200 shadow-sm p-5 border-1 border-white/10 max-w-none mb-5">
         <ReactMarkdown>{project.description}</ReactMarkdown>
+      </div>
+      <div className="my-10 space-y-3">
+        <p className="font-bold mb-2">Comments:</p>
+        {comments.map((comment) => (
+          <CommentsCard
+            key={comment.id}
+            author={comment.user?.name ?? ""}
+            date={comment.dateCreated.toLocaleDateString()}
+            description={comment.comment ?? ""}
+          />
+        ))}
       </div>
     </div>
   );
