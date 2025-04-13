@@ -89,7 +89,11 @@ export default async function ProjectPage() {
                 by: {project.student?.name}
               </span>
             </h1>
-            <button className="btn btn-primary">Update Project</button>
+            <button className="btn btn-primary">
+              <Link href={`./project/proposal/${project.id}/edit`}>
+                Update Project
+              </Link>
+            </button>
           </div>
           <div className="flex justify-between">
             <div className="flex gap-10 mt-2 mb-5">
