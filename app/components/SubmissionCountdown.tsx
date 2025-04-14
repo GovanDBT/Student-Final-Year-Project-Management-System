@@ -3,7 +3,7 @@ import React from "react";
 interface Props {
   title: string;
   days: number;
-  desc: string;
+  desc?: string;
 }
 
 const SubmissionCountdown = ({ title, days, desc }: Props) => {
