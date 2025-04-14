@@ -9,7 +9,7 @@ export default async function Dashboard() {
   return (
     <div className="container mx-auto">
       <h1 className="text-4xl mb-5">
-        👋 Hello {session && <span>{session.user!.name}</span>}
+        👋 Hello {session && <span>{session.user!.name} (Coordinator)</span>}
       </h1>
       <div>
         <h1 className="divider divider-start">My Students</h1>

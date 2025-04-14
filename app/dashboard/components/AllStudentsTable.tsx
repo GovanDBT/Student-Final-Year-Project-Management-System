@@ -1,6 +1,4 @@
 import { prisma } from "@/prisma/client";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import classnames from "classnames";
 import Link from "next/link";
 
@@ -18,8 +16,8 @@ const AllStudentsTable = async () => {
             <th>Student Name</th>
             <th>Student ID</th>
             <th className="hidden md:table-cell">Email</th>
-            <th className="hidden md:table-cell">Phone</th>
-            <th className="hidden md:table-cell">Programme</th>
+            <th className="hidden lg:table-cell">Phone</th>
+            <th className="hidden lg:table-cell">Programme</th>
             <th className="hidden md:table-cell">Status</th>
           </tr>
         </thead>
@@ -29,16 +27,22 @@ const AllStudentsTable = async () => {
               <td>
                 <Link
                   className="link link-success"
-                  href={`/dashboard/supervisor/projects/${student.id}`}
+                  href={`/dashboard/coordinator/students/${student.id}`}
                 >
                   {student.name}
                 </Link>
               </td>
               <td>{student.userId}</td>
               <td className="hidden md:table-cell">{student.email}</td>
-              <td className="hidden md:table-cell">{student.phone}</td>
-              <td className="hidden md:table-cell">{student.programme}</td>
-              <td className="hidden md:table-cell">
+              <td className="hidden lg:table-cell">{student.phone}</td>
+              <td className="hidden lg:table-cell">{student.programme}</td>
+              <td
+                className={classnames({
+                  "badge-success": student.isActive === true,
+                  "badge-error": student.isActive === false,
+                  "badge badge-soft mt-2": true,
+                })}
+              >
                 {student.isActive === true ? "Active" : "Inactive"}
               </td>
             </tr>
