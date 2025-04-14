@@ -1,4 +1,4 @@
-import { updateProjectSchema, createCommentSchema } from "@/app/validationSchema";
+import { updateProjectSchema } from "@/app/validationSchema";
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 

@@ -34,6 +34,13 @@ export const createUserSchema = z.object({
   path: ["confirmPassword"],
 });
 
+// announcement schema
+export const createAnnouncementSchema = z.object({
+  title: z.string().min(1, 'Announcement Title is Required!'),
+  description: z.string().min(1, 'Announcement Description is Required!'),
+  coordinatorId: z.string().min(1, 'Coordinator Required!').optional()
+})
+
 // Comment Schema
 export const createCommentSchema = z.object({
     comment: z.string().min(1, 'Comment is Required!'),
