@@ -10,7 +10,8 @@ export const createProjectSchema = z.object({
 export const updateProjectSchema = z.object({
   title: z.string().min(1, 'Project Title is Required!').max(255).optional(),
   description: z.string().min(1, 'Project Description is Required!').optional(),
-  status: z.string()
+  supervisorId: z.string().min(1, 'Project Supervisor is Required!').optional(),
+  status: z.string().optional()
 })
 
 // User Schema
