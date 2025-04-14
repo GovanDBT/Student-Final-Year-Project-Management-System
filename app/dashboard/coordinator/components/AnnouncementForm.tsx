@@ -70,6 +70,7 @@ const AnnouncementForm = () => {
             await axios.post("/api/announcements", data);
             setFieldSuccess("Announcement Successfully Posted!");
             reset(); // clears form
+            router.refresh();
           } catch (error) {
             setFieldError("An unexpected error has occurred");
           }
