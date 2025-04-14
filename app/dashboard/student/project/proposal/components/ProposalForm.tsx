@@ -78,7 +78,9 @@ const ProjectProposalForm = ({ project }: Props) => {
       <form
         onSubmit={handleSubmit(async (data) => {
           try {
-            await axios.post("/api/projects", data);
+            if (project)
+              await axios.patch("/api/projects/proposals/" + project.id, data);
+            else await axios.post("/api/projects", data);
             router.push("/dashboard/student/project");
           } catch (error) {
             setFieldError("An unexpected error has occurred");
@@ -141,7 +143,9 @@ const ProjectProposalForm = ({ project }: Props) => {
             ))}
           </select>
         </fieldset>
-        <button className="btn btn-primary">Submit Proposal</button>
+        <button className="btn btn-primary">
+          {project ? "Update Project" : "Submit Proposal"}
+        </button>
       </form>
     </div>
   );
