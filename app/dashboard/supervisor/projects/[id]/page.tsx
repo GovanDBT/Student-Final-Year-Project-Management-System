@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import classnames from "classnames";
 import ReactMarkdown from "react-markdown";
-import ResponseModal from "../../components/ResponseModal";
+import ResponseModal from "../../../components/ResponseModal";
 import CommentsCard from "../../../../components/CommentsCard";
 
 interface Props {

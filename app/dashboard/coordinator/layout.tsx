@@ -5,7 +5,7 @@ interface Props {
   children: ReactNode;
 }
 
-const supervisorLayout = ({ children }: Props) => {
+const coordinatorLayout = ({ children }: Props) => {
   return (
     <div>
       <NavBar />
@@ -14,4 +14,4 @@ const supervisorLayout = ({ children }: Props) => {
   );
 };
 
-export default supervisorLayout;
+export default coordinatorLayout;
