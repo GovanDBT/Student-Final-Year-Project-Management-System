@@ -122,7 +122,7 @@ export default async function ProjectPage() {
               <h3 className="font-bold mb-3">Project Details:</h3>
               <div>
                 <span className="font-bold">Supervisor:</span>{" "}
-                <Link href="#" className="link link-success">
+                <Link href="./project/supervisor" className="link link-success">
                   {project.supervisor.name}
                 </Link>
               </div>
