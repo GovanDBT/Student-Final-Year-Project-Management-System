@@ -17,7 +17,10 @@ const NavBar = () => {
   };
   const links = [
     { label: "Dashboard", href: "/dashboard/coordinator" },
-    { label: "Project", href: "/dashboard/coordinator/project" },
+    { label: "Students", href: "/dashboard/coordinator/students" },
+    { label: "Projects", href: "/dashboard/coordinator/projects" },
+    { label: "Announcements", href: "/dashboard/coordinator/announcements" },
+    { label: "Project Deadlines", href: "/dashboard/coordinator/deadlines" },
   ];
   return (
     <nav className="navbar shadow-sm mb-5">

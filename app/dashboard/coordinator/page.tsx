@@ -8,10 +8,11 @@ export default async function Dashboard() {
   const session = await getServerSession(authOptions);
   return (
     <div className="container mx-auto">
-      <h1 className="text-4xl">
+      <h1 className="text-4xl mb-5">
         👋 Hello {session && <span>{session.user!.name}</span>}
       </h1>
       <div>
+        <h1 className="divider divider-start">My Students</h1>
         <StudentsTable />
       </div>
     </div>
