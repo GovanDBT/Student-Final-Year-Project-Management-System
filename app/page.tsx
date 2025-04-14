@@ -2,8 +2,17 @@ import NavBar from "./components/NavBar";
 import LoginForm from "./components/LoginForm";
 import SubmissionCountdown from "./components/SubmissionCountdown";
 import Announcement from "./components/Announcement";
+import { prisma } from "@/prisma/client";
 
-export default function Home() {
+export default async function Home() {
+  const announcements = await prisma.announcement.findMany({
+    include: {
+      coordinator: true,
+    },
+    orderBy: {
+      dateCreated: "desc",
+    },
+  });
   return (
     <>
       <NavBar />
@@ -24,9 +33,20 @@ export default function Home() {
           </div>
           <h1 className="text-3xl mb-6">Announcement</h1>
           <div className="max-h-110 overflow-scroll p-3 border-1 border-secondary/10 rounded-lg">
-            <Announcement />
-            <Announcement />
-            <Announcement />
+            {announcements.map((announcement) => (
+              <Announcement
+                key={announcement.id}
+                title={announcement.title}
+                date={new Intl.DateTimeFormat("en-US", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                }).format(new Date(announcement.dateCreated))}
+                author={announcement.coordinator.name ?? ""}
+                role={announcement.coordinator.role ?? ""}
+                description={announcement.description}
+              />
+            ))}
           </div>
         </div>
       </div>

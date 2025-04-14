@@ -26,6 +26,15 @@ export default async function Dashboard() {
     },
   });
 
+  const announcements = await prisma.announcement.findMany({
+    include: {
+      coordinator: true,
+    },
+    orderBy: {
+      dateCreated: "desc",
+    },
+  });
+
   return (
     <div className="container mx-auto">
       <h1 className="text-4xl">
@@ -113,9 +122,20 @@ export default async function Dashboard() {
             <h2>Announcements</h2>
           </div>
           <div className="max-h-105 overflow-scroll p-3 border-1 border-secondary/10 rounded-lg">
-            <Announcement />
-            <Announcement />
-            <Announcement />
+            {announcements.map((announcement) => (
+              <Announcement
+                key={announcement.id}
+                title={announcement.title}
+                date={new Intl.DateTimeFormat("en-US", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                }).format(new Date(announcement.dateCreated))}
+                author={announcement.coordinator.name ?? ""}
+                role={announcement.coordinator.role ?? ""}
+                description={announcement.description}
+              />
+            ))}
           </div>
         </div>
         {/** Activities */}

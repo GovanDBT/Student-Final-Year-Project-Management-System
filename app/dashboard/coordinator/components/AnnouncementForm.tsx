@@ -2,6 +2,7 @@
 
 import { createAnnouncementSchema } from "@/app/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Announcement } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,7 +11,11 @@ import { z } from "zod";
 
 type AnnouncementFormData = z.infer<typeof createAnnouncementSchema>;
 
-const AnnouncementForm = () => {
+interface Props {
+  announcement?: Announcement;
+}
+
+const AnnouncementForm = ({ announcement }: Props) => {
   const [fieldError, setFieldError] = useState(""); // error hook
   const [fieldSuccess, setFieldSuccess] = useState(""); // error hook
   const router = useRouter(); // router
@@ -67,10 +72,15 @@ const AnnouncementForm = () => {
       <form
         onSubmit={handleSubmit(async (data) => {
           try {
-            await axios.post("/api/announcements", data);
-            setFieldSuccess("Announcement Successfully Posted!");
-            reset(); // clears form
-            router.refresh();
+            if (announcement) {
+              await axios.patch("/api/announcements/" + announcement.id, data);
+              setFieldSuccess("Announcement Successfully Updated!");
+            } else {
+              await axios.post("/api/announcements", data);
+              setFieldSuccess("Announcement Successfully Posted!");
+              reset(); // clears form
+              router.refresh();
+            }
           } catch (error) {
             setFieldError("An unexpected error has occurred");
           }
@@ -82,6 +92,7 @@ const AnnouncementForm = () => {
             type="text"
             placeholder="Announcement Title"
             className="input w-full mb-2"
+            defaultValue={announcement?.title}
             {...register("title")}
           />
           {errors.title && (
@@ -92,6 +103,7 @@ const AnnouncementForm = () => {
           <textarea
             className="textarea h-50 w-full mb-2"
             placeholder="Announcement Description..."
+            defaultValue={announcement?.description}
             {...register("description")}
           ></textarea>
           {errors.description && (
@@ -99,7 +111,7 @@ const AnnouncementForm = () => {
           )}
         </div>
         <button type="submit" className="btn btn-primary">
-          Submit Announcement
+          {announcement ? "Update Announcement" : "Submit Announcement"}
         </button>
       </form>
     </>

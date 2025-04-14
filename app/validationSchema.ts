@@ -41,6 +41,11 @@ export const createAnnouncementSchema = z.object({
   coordinatorId: z.string().min(1, 'Coordinator Required!').optional()
 })
 
+export const updateAnnouncement = z.object({
+  title: z.string().min(1, 'Announcement Title is Required!').optional(),
+  description: z.string().min(1, 'Announcement Description is Required!').optional(),
+})
+
 // Comment Schema
 export const createCommentSchema = z.object({
     comment: z.string().min(1, 'Comment is Required!'),

@@ -15,6 +15,9 @@ const AnnouncementsListTable = async () => {
     include: {
       coordinator: true,
     },
+    orderBy: {
+      dateCreated: "desc",
+    },
   });
 
   return (
@@ -35,7 +38,10 @@ const AnnouncementsListTable = async () => {
           {announcements.map((announcement) => (
             <tr key={announcement.id}>
               <td>
-                <Link className="link link-success" href="#">
+                <Link
+                  className="link link-success"
+                  href={`/dashboard/coordinator/announcements/${announcement.id}`}
+                >
                   {announcement.title}
                 </Link>
               </td>
