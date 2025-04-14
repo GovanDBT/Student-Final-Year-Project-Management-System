@@ -1,8 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../api/auth/[...nextauth]/route";
-import Link from "next/link";
-import { prisma } from "@/prisma/client";
-import StudentsTable from "../components/StudentsTable";
+import StudentsTable from "./components/StudentsTable";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);

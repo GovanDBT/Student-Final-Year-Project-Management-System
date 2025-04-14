@@ -100,7 +100,7 @@ const ResponseModal = ({ projectId, author }: Props) => {
             {errors.comment && (
               <p className="text-red-600 text-sm">{errors.comment?.message}</p>
             )}
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary text-wrap">
               Sent Response
             </button>
           </form>
