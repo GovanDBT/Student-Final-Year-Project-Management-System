@@ -7,9 +7,9 @@ export default function Home() {
   return (
     <>
       <NavBar />
-      <div className="grid grid-rows-auto gap-5 grid-cols-1 lg:grid-cols-[400px_minmax(900px,1fr)_600px] lg:grid-rows-1 container mx-auto">
+      <div className="grid grid-rows-auto gap-5 lg:grid-cols-3 content-stretch container mx-auto">
         <LoginForm />
-        <div>
+        <div className="lg:col-span-2">
           <div className="flex items-start gap-2 lg:gap-5 mb-8">
             <SubmissionCountdown
               title="Days till next submission"
@@ -23,7 +23,7 @@ export default function Home() {
             />
           </div>
           <h1 className="text-3xl mb-6">Announcement</h1>
-          <div className="max-h-105 overflow-scroll p-3 border-1 border-secondary/10 rounded-lg">
+          <div className="max-h-110 overflow-scroll p-3 border-1 border-secondary/10 rounded-lg">
             <Announcement />
             <Announcement />
             <Announcement />
