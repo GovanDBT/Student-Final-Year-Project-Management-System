@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
 import { getServerSession } from "next-auth";
-import { createProjectSchema } from "../../validationSchema";
+import { projectSchema } from "../../validationSchema";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function POST(request: NextRequest){
@@ -10,7 +10,7 @@ export async function POST(request: NextRequest){
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     const body = await request.json(); // create request
-    const validation = createProjectSchema.safeParse(body); // validates request
+    const validation = projectSchema.safeParse(body); // validates request
     if (!validation.success) return NextResponse.json(validation.error.format(), { status: 400 }); // if request validation fails
 
     if (body.supervisorId) {

@@ -1,4 +1,4 @@
-import ProposalForm from "./components/ProposalForm";
+import ProposalForm from "../../components/ProposalForm";
 
 const ProjectProposalPage = () => {
   return <ProposalForm />;

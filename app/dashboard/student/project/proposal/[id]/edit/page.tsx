@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/client";
-import ProposalForm from "../../components/ProposalForm";
+import ProposalForm from "../../../../components/ProposalForm";
 import { notFound } from "next/navigation";
 
 interface Props {

@@ -20,13 +20,14 @@ export const createUserSchema = z.object({
   path: ["confirmPassword"],
 });
 
-// Project Schema
-export const createProjectSchema = z.object({
+// project Schema
+export const projectSchema = z.object({
     title: z.string().min(1, 'Project Title is Required!').max(255),
     description: z.string().min(1, 'Project Description is Required!'),
     supervisorId: z.string().min(1, 'Project Supervisor is Required!')
 });
 
+// update project schema
 export const updateProjectSchema = z.object({
   title: z.string().min(1, 'Project Title is Required!').max(255).optional(),
   description: z.string().min(1, 'Project Description is Required!').optional(),

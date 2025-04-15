@@ -57,17 +57,17 @@ export default async function ProjectPage() {
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               ></path>
             </svg>
-            <span>You do not have a project proposal</span>
+            <span className="text-lg">You do not have a project proposal</span>
             <div>
               <Link
                 href="/dashboard/student/project/proposal"
-                className="btn btn-sm btn-primary"
+                className="btn btn-primary"
               >
-                Submit Proposal
+                Create Proposal
               </Link>
             </div>
           </div>
-          <h1 className="text-center">NO PROJECT YET</h1>
+          <h1 className="text-center">Empty Project!</h1>
         </div>
       )}
       {project?.studentId && (
@@ -149,12 +149,24 @@ export default async function ProjectPage() {
               <div className="divider my-5"></div>
               <p>
                 <span className="font-bold">Date Created:</span>{" "}
-                {project.dateCreated.toLocaleDateString()}
+                {new Intl.DateTimeFormat("en-US", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                }).format(new Date(project.dateCreated))}
               </p>
               <div className="divider my-5"></div>
               <p>
                 <span className="font-bold">Last Update:</span>{" "}
-                {project.dateUpdated?.toLocaleDateString()}
+                {new Intl.DateTimeFormat("en-US", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                }).format(
+                  project.dateUpdated
+                    ? new Date(project.dateUpdated)
+                    : new Date()
+                )}
               </p>
               <div className="divider my-5"></div>
             </div>

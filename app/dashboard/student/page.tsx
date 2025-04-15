@@ -57,9 +57,9 @@ export default async function Dashboard() {
           desc="Presentation of project - including presentation slides, documentation, and implementation"
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 my-5">
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-5 my-5">
         {/** Project Overview */}
-        <div className="col-span-2">
+        <div>
           <div className="divider divider-start mb-8">
             <h2>Project Overview</h2>
           </div>
@@ -74,8 +74,8 @@ export default async function Dashboard() {
             </div>
           )}
           {project?.studentId && (
-            <div className="grid md:grid-cols-2 gap-5">
-              <div className="space-y-5">
+            <div className="grid md:grid-cols-2 gap-x-2">
+              <div className="space-y-10">
                 <p>
                   <span className="font-bold">Project Title:</span>{" "}
                   {project?.title}
@@ -85,8 +85,8 @@ export default async function Dashboard() {
                   {project?.supervisor.name}
                 </p>
               </div>
-              <div className="space-y-4">
-                <div className="flex gap-10 mt-2 mb-5">
+              <div className="space-y-10">
+                <div>
                   <p>
                     <span className="font-bold">Project Status:</span>{" "}
                     <span
@@ -104,7 +104,11 @@ export default async function Dashboard() {
                 </div>
                 <p>
                   <span className="font-bold">Last Update:</span>{" "}
-                  {project?.dateUpdated?.toLocaleDateString()}
+                  {new Intl.DateTimeFormat("en-US", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  }).format(new Date(project.dateCreated))}
                 </p>
               </div>
             </div>
@@ -117,7 +121,7 @@ export default async function Dashboard() {
           </div>
         </div>
         {/** Announcements */}
-        <div className="col-span-2">
+        <div>
           <div className="divider divider-start mb-8">
             <h2>Announcements</h2>
           </div>

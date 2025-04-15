@@ -7,12 +7,12 @@ import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createProjectSchema } from "@/app/validationSchema";
+import { projectSchema } from "@/app/validationSchema";
 import { z } from "zod";
 import { Project, User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 
-type ProjectFormData = z.infer<typeof createProjectSchema>;
+type ProjectFormData = z.infer<typeof projectSchema>;
 
 interface Props {
   project?: Project;
@@ -21,17 +21,21 @@ interface Props {
 const ProjectProposalForm = ({ project }: Props) => {
   const router = useRouter(); // router
   const [fieldError, setFieldError] = useState(""); // error hook
+
+  // retrieves the roles of users
   const { data: supervisors, error } = useQuery<User[]>({
     queryKey: ["supervisors"],
-    queryFn: () => axios.get("/api/users/supervisors").then((res) => res.data),
+    queryFn: () => axios.get("/api/user/role").then((res) => res.data),
     staleTime: 60 * 1000,
     retry: 3,
   });
   if (error) return null;
+
   // function to make our editor compatible with our browser
   const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
     ssr: false,
   });
+
   // react hook forms
   const {
     register,
@@ -39,8 +43,20 @@ const ProjectProposalForm = ({ project }: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm<ProjectFormData>({
-    resolver: zodResolver(createProjectSchema),
+    resolver: zodResolver(projectSchema),
   });
+
+  // submit function
+  const onSubmit = async (data: ProjectFormData) => {
+    try {
+      if (project) await axios.patch("/api/project/" + project.id, data);
+      else await axios.post("/api/project", data);
+      router.push("/dashboard/student/project");
+    } catch (error) {
+      setFieldError("An unexpected error has occurred");
+    }
+  };
+
   return (
     <div className="container mx-auto">
       <div className="breadcrumbs text-sm">
@@ -75,19 +91,9 @@ const ProjectProposalForm = ({ project }: Props) => {
         </div>
       )}
       <h1>Final Year Project Proposal Form</h1>
-      <form
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            if (project)
-              await axios.patch("/api/projects/proposals/" + project.id, data);
-            else await axios.post("/api/projects", data);
-            router.push("/dashboard/student/project");
-          } catch (error) {
-            setFieldError("An unexpected error has occurred");
-          }
-        })}
-        className="space-y-5 my-5"
-      >
+      {/* Proposal Form */}
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 my-5">
+        {/* Title input */}
         <input
           type="text"
           defaultValue={project?.title}
@@ -98,6 +104,7 @@ const ProjectProposalForm = ({ project }: Props) => {
         {errors.title && (
           <p className="text-red-600 text-sm">{errors.title.message}</p>
         )}
+        {/* Description input */}
         <fieldset className="fieldset">
           <legend className="fieldset-legend">
             <span className="text-lg">Project Description</span>
@@ -122,6 +129,7 @@ const ProjectProposalForm = ({ project }: Props) => {
         {errors.description && (
           <p className="text-red-600">{errors.description.message}</p>
         )}
+        {/* Select supervisor input */}
         <fieldset className="fieldset">
           <legend className="fieldset-legend text-lg">Select Supervisor</legend>
           <select
@@ -143,6 +151,7 @@ const ProjectProposalForm = ({ project }: Props) => {
             ))}
           </select>
         </fieldset>
+        {/* Submit or update button */}
         <button className="btn btn-primary">
           {project ? "Update Project" : "Submit Proposal"}
         </button>
