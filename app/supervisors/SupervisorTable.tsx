@@ -1,6 +1,7 @@
 import { prisma } from "@/prisma/client";
 
 const SupervisorTable = async () => {
+  // retrieves users with supervisor, coordinator and admin role
   const users = await prisma.user.findMany({
     where: {
       role: {
@@ -11,34 +12,35 @@ const SupervisorTable = async () => {
       supervisorProjects: true,
     },
   });
+
   return (
-    <div className="overflow-x-auto">
-      <table className="table table-zebra">
-        {/* head */}
-        <thead>
-          <tr>
-            <th>Supervisor Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Office</th>
-            <th>Role</th>
-            <th>Number of Students</th>
+    <table className="table table-zebra">
+      {/* head */}
+      <thead>
+        <tr>
+          <th>Supervisor Name</th>
+          <th>Email</th>
+          <th className="hidden md:table-cell">Phone</th>
+          <th>Office</th>
+          <th className="hidden md:table-cell">Role</th>
+          <th className="hidden md:table-cell">Number of Students</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map((user) => (
+          <tr key={user.id}>
+            <td>{user.name}</td>
+            <td>{user.email}</td>
+            <td className="hidden md:table-cell">{user.phone}</td>
+            <td>{user.office}</td>
+            <td className="hidden md:table-cell">{user.role}</td>
+            <td className="hidden md:table-cell">
+              {user.supervisorProjects.length}
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.phone}</td>
-              <td>{user.office}</td>
-              <td>{user.role}</td>
-              <td>{user.supervisorProjects.length}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

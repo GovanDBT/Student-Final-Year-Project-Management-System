@@ -6,7 +6,7 @@ const ProposalList = () => {
     <>
       <NavBar />
       <div className="container mx-auto">
-        <div className="mb-5 max-w-3xl">
+        <div className="lg:max-w-3xl md:border-l-1 pl-3 text-center md:text-left">
           <h1>Students Proposals List</h1>
           <p>
             The table below show a list of all proposals made by students taking
@@ -15,6 +15,7 @@ const ProposalList = () => {
             conflict of interest among students projects
           </p>
         </div>
+        <div className="divider my-2"></div>
         <ProposalTable />
       </div>
     </>

@@ -19,6 +19,9 @@ export default async function Home() {
       <div className="grid grid-rows-auto gap-5 lg:grid-cols-3 content-stretch container mx-auto">
         <LoginForm />
         <div className="lg:col-span-2">
+          <h1 className="mb-6 divider divider-start">
+            2025 Final Year Project Management System
+          </h1>
           <div className="flex items-start gap-2 lg:gap-5 mb-8">
             <SubmissionCountdown
               title="Days till next submission"
@@ -31,7 +34,7 @@ export default async function Home() {
               desc="Presentation of project - including presentation slides, documentation, and implementation"
             />
           </div>
-          <h1 className="text-3xl mb-6">Announcement</h1>
+          <h1 className="mb-6 divider divider-start">Announcement</h1>
           <div className="max-h-110 overflow-scroll p-3 border-1 border-secondary/10 rounded-lg">
             {announcements.map((announcement) => (
               <Announcement

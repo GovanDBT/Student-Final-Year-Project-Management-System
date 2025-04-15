@@ -15,8 +15,8 @@ const ProposalTable = async () => {
         <thead>
           <tr>
             <th>Student Name</th>
-            <th>Student ID</th>
-            <th>Supervisor</th>
+            <th className="hidden md:table-cell">Student ID</th>
+            <th className="hidden md:table-cell">Supervisor</th>
             <th>Project Title</th>
             <th>Project Status</th>
           </tr>
@@ -25,8 +25,10 @@ const ProposalTable = async () => {
           {proposals.map((proposal) => (
             <tr key={proposal.id}>
               <td>{proposal.student?.name}</td>
-              <td>{proposal.studentId}</td>
-              <td>{proposal.supervisor?.name}</td>
+              <td className="hidden md:table-cell">{proposal.studentId}</td>
+              <td className="hidden md:table-cell">
+                {proposal.supervisor?.name}
+              </td>
               <td>{proposal.title}</td>
               <td
                 className={classnames({
