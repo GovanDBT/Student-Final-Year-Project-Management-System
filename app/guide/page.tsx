@@ -4,9 +4,9 @@ const ProjectGuide = () => {
   return (
     <>
       <NavBar />
-      <div className="container mx-auto grid grid-cols-[1fr_3fr] gap-x-5">
+      <div className="container mx-auto grid md:grid-cols-[1fr_3fr] grid-cols-1 gap-x-5">
         {/* Side Menu */}
-        <ul className="menu bg-base-200 rounded-box w-full h-full">
+        <ul className="menu bg-base-200 rounded-box w-full h-full hidden md:flex">
           <li>
             <h2>Quick Links</h2>
           </li>
@@ -58,7 +58,7 @@ const ProjectGuide = () => {
           {/* Header */}
           <div className="flex justify-between mb-2">
             <h1>Project Guide</h1>
-            <a href="/public/project_guide.pdf" download>
+            <a href="/project_guide.pdf" download>
               <button className="btn btn-primary">Download Guide</button>
             </a>
           </div>
@@ -196,58 +196,60 @@ const ProjectGuide = () => {
               Literature Survey/Review, Requirements Analysis & Specification,
               System Design Specification, References
             </p>
-            <table className="table table-zebra mb-8">
-              <thead>
-                <tr>
-                  <td>Title</td>
-                  <td>Description</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>PR.1 Introduction</td>
-                  <td>
-                    See the introduction in the detailed project proposal. It is
-                    required that there should be substantial improvement from
-                    the detailed project proposal.
-                  </td>
-                </tr>
-                <tr>
-                  <td>PR.2 Literature Survey / Review</td>
-                  <td>
-                    There should be proper and enough evidence of the literature
-                    survey or review having been done. It is required that there
-                    should be substantial improvement from the detailed project
-                    proposal.
-                  </td>
-                </tr>
-                <tr>
-                  <td>PR.3 Requirement analysis and specification</td>
-                  <td>
-                    It is essential that the requirements analysis and
-                    specification should have progressed and hence there should
-                    be substantial improvement from the detailed project
-                    proposal.
-                  </td>
-                </tr>
-                <tr>
-                  <td>PR.4 System Design Specification</td>
-                  <td>
-                    It is essential that the design specification is traceable
-                    from the requirements analysis and specification exercise.
-                  </td>
-                </tr>
-                <tr>
-                  <td>PR.5 References</td>
-                  <td>
-                    Appropriate references and proper citation of reference must
-                    be present as evidence of literature survey or review. It is
-                    required that there should be substantial improvement from
-                    the detailed project proposal.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="table table-zebra mb-8">
+                <thead>
+                  <tr>
+                    <td>Title</td>
+                    <td>Description</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>PR.1 Introduction</td>
+                    <td>
+                      See the introduction in the detailed project proposal. It
+                      is required that there should be substantial improvement
+                      from the detailed project proposal.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>PR.2 Literature Survey / Review</td>
+                    <td>
+                      There should be proper and enough evidence of the
+                      literature survey or review having been done. It is
+                      required that there should be substantial improvement from
+                      the detailed project proposal.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>PR.3 Requirement analysis and specification</td>
+                    <td>
+                      It is essential that the requirements analysis and
+                      specification should have progressed and hence there
+                      should be substantial improvement from the detailed
+                      project proposal.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>PR.4 System Design Specification</td>
+                    <td>
+                      It is essential that the design specification is traceable
+                      from the requirements analysis and specification exercise.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>PR.5 References</td>
+                    <td>
+                      Appropriate references and proper citation of reference
+                      must be present as evidence of literature survey or
+                      review. It is required that there should be substantial
+                      improvement from the detailed project proposal.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           {/* 4.2 Final Report */}
           <div>
@@ -401,63 +403,66 @@ const ProjectGuide = () => {
               The following framework of marking will be applied when assessing
               your project work.
             </p>
-            <table className="table table-zebra mb-8">
-              <thead>
-                <tr>
-                  <td>Category</td>
-                  <td>Evidence</td>
-                  <td>Examiner</td>
-                  <td>Marks</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Alpha, Beta version</td>
-                  <td>
-                    Basic functionality of the prototype in line with design
-                    guidelines especially PR.4.2 (though with different weight
-                    scores).
-                  </td>
-                  <td>Supervisor & Co-examiner</td>
-                  <td>10%</td>
-                </tr>
-                <tr>
-                  <td>Project Management</td>
-                  <td>
-                    Project Management based on diary sheets and weekly meetings
-                    to date (up to Final Report submission)
-                  </td>
-                  <td>Supervisor</td>
-                  <td>10%</td>
-                </tr>
-                <tr>
-                  <td>Project Implementation</td>
-                  <td>
-                    The product Implementation (code, testing, evaluation, etc)
-                  </td>
-                  <td>Supervisor & Co-examiner</td>
-                  <td>30%</td>
-                </tr>
-                <tr>
-                  <td>Project Reporting</td>
-                  <td>
-                    Final Report, full report and documentation (including
-                    layout and presentation), evidence of project management.
-                  </td>
-                  <td>Supervisor & Co-examiner</td>
-                  <td>30%</td>
-                </tr>
-                <tr>
-                  <td>Project Presentation</td>
-                  <td>
-                    articulate professional & visual Presentation, Response to
-                    Questions, understanding as demonstrated
-                  </td>
-                  <td>Supervisor & Co-examiner</td>
-                  <td>20%</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="table table-zebra mb-8">
+                <thead>
+                  <tr>
+                    <td>Category</td>
+                    <td>Evidence</td>
+                    <td>Examiner</td>
+                    <td>Marks</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Alpha, Beta version</td>
+                    <td>
+                      Basic functionality of the prototype in line with design
+                      guidelines especially PR.4.2 (though with different weight
+                      scores).
+                    </td>
+                    <td>Supervisor & Co-examiner</td>
+                    <td>10%</td>
+                  </tr>
+                  <tr>
+                    <td>Project Management</td>
+                    <td>
+                      Project Management based on diary sheets and weekly
+                      meetings to date (up to Final Report submission)
+                    </td>
+                    <td>Supervisor</td>
+                    <td>10%</td>
+                  </tr>
+                  <tr>
+                    <td>Project Implementation</td>
+                    <td>
+                      The product Implementation (code, testing, evaluation,
+                      etc)
+                    </td>
+                    <td>Supervisor & Co-examiner</td>
+                    <td>30%</td>
+                  </tr>
+                  <tr>
+                    <td>Project Reporting</td>
+                    <td>
+                      Final Report, full report and documentation (including
+                      layout and presentation), evidence of project management.
+                    </td>
+                    <td>Supervisor & Co-examiner</td>
+                    <td>30%</td>
+                  </tr>
+                  <tr>
+                    <td>Project Presentation</td>
+                    <td>
+                      articulate professional & visual Presentation, Response to
+                      Questions, understanding as demonstrated
+                    </td>
+                    <td>Supervisor & Co-examiner</td>
+                    <td>20%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           {/* 6.1 Project Implementation Details */}
           <div>
@@ -471,61 +476,63 @@ const ProjectGuide = () => {
             <h3 className="divider divider-start" id="reporting">
               6.2 Project Reporting Details
             </h3>
-            <table className="table table-zebra mb-8">
-              <thead>
-                <tr>
-                  <td>Title</td>
-                  <td>Details</td>
-                  <td>Score</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>FR.1 Introduction (10)</td>
-                  <td></td>
-                  <td>2</td>
-                </tr>
-                <tr>
-                  <td>FR.2 Literature Survey / Review (10)</td>
-                  <td></td>
-                  <td>2</td>
-                </tr>
-                <tr>
-                  <td>FR.3 Requirement analysis and specification (3)</td>
-                  <td>Already assessed in PR.3 </td>
-                  <td>8</td>
-                </tr>
-                <tr>
-                  <td>FR.4 System Design Specification (3)</td>
-                  <td>Already assessed in PR.4</td>
-                  <td>8</td>
-                </tr>
-                <tr>
-                  <td>FR.5 Implementation Summary (20) </td>
-                  <td>
-                    What was achieved? What was not achieved? For each of those
-                    not achieved, why not achieved? What did the student learn?
-                    Future work
-                  </td>
-                  <td>2</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    testing approach used test cases and results for each system
-                    evaluation
-                  </td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    User manual - installation - operational - maintenance
-                  </td>
-                  <td>3</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="table table-zebra mb-8">
+                <thead>
+                  <tr>
+                    <td>Title</td>
+                    <td>Details</td>
+                    <td>Score</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>FR.1 Introduction (10)</td>
+                    <td></td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td>FR.2 Literature Survey / Review (10)</td>
+                    <td></td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td>FR.3 Requirement analysis and specification (3)</td>
+                    <td>Already assessed in PR.3 </td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <td>FR.4 System Design Specification (3)</td>
+                    <td>Already assessed in PR.4</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <td>FR.5 Implementation Summary (20) </td>
+                    <td>
+                      What was achieved? What was not achieved? For each of
+                      those not achieved, why not achieved? What did the student
+                      learn? Future work
+                    </td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>
+                      testing approach used test cases and results for each
+                      system evaluation
+                    </td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>
+                      User manual - installation - operational - maintenance
+                    </td>
+                    <td>3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           {/* 6.3 Presentation Details */}
           <div>
