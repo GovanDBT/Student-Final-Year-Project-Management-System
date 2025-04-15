@@ -1,20 +1,14 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { FaBarsStaggered } from "react-icons/fa6";
+import Image from "next/image";
 import classnames from "classnames";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
+import { FaCircleUser } from "react-icons/fa6";
+import { FaBarsStaggered } from "react-icons/fa6";
+import LogoutModal from "../components/LogoutModal";
 
 const NavBar = () => {
-  const { status, data: session } = useSession();
   const currentPath = usePathname();
-  if (status === "loading") return null;
-
-  const handleLogout = () => {
-    signOut({ callbackUrl: "/" }); // Redirect to home page after logout
-  };
   const links = [
     { label: "Dashboard", href: "/dashboard/student" },
     { label: "My Project", href: "/dashboard/student/project" },
@@ -24,10 +18,13 @@ const NavBar = () => {
     { label: "Past Projects", href: "/dashboard/student/pastProjects" },
   ];
   return (
-    <nav className="navbar shadow-sm mb-5">
+    <nav className="navbar mb-6 bg-base-200 w-full">
       <div className="container mx-auto flex">
+        {/* Navbar start */}
         <div className="navbar-start">
+          {/* Dropdown */}
           <div className="dropdown">
+            {/* Burger */}
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <FaBarsStaggered size={23} />
             </div>
@@ -52,11 +49,13 @@ const NavBar = () => {
               </li>
             </ul>
           </div>
-          <Link href="/" className="btn btn-ghost text-xl space-x-2">
-            <Image src="/ub-logo.png" alt="UB logo" width={25} height={25} />
-            <h1 className="font-bungee text-xl hidden md:flex">Project Hub</h1>
+          {/* Logo and Text */}
+          <Link href="/" className="btn btn-ghost space-x-2">
+            <Image src="/ub-logo.png" alt="UB logo" width={28} height={28} />
+            <h1 className="font-bungee text-2xl mt-2">Project Hub</h1>
           </Link>
         </div>
+        {/* Navbar middle */}
         <div className="navbar-center hidden lg:flex">
           <ul className="menu">
             <li className="menu-horizontal space-x-8">
@@ -76,28 +75,20 @@ const NavBar = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-end flex gap-2">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          />
+        {/* Navbar end */}
+        <div className="navbar-end flex space-x-5">
+          <LogoutModal />
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
-              </div>
+              <FaCircleUser size={35} />
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-md dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2"
             >
               <li>
                 <a className="justify-between">
@@ -107,9 +98,6 @@ const NavBar = () => {
               </li>
               <li>
                 <a>Settings</a>
-              </li>
-              <li>
-                <button onClick={handleLogout}>Logout</button>
               </li>
             </ul>
           </div>

@@ -75,7 +75,7 @@ const NavBar = () => {
           </ul>
         </div>
         {/* Navbar end */}
-        <div className="navbar-end flex gap-2">
+        <div className="navbar-end">
           <button className="btn btn-primary">
             <Link href="/signup">Sign Up</Link>
           </button>
