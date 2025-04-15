@@ -14,7 +14,7 @@ type RegistrationForm = z.infer<typeof createUserSchema>;
 
 const RegistrationPage = () => {
   const router = useRouter(); // router
-  const [fieldError, setFieldError] = useState(""); // hook for showing errors
+  const [fieldError, setFieldError] = useState(""); // hook for showing errors message
 
   // react hook form
   const {
@@ -28,7 +28,7 @@ const RegistrationPage = () => {
   return (
     <>
       <NavBar />
-      <div className="container mx-auto">
+      <div>
         {fieldError && (
           <div role="alert" className="alert alert-error my-5">
             <svg
@@ -67,8 +67,7 @@ const RegistrationPage = () => {
         <form
           onSubmit={handleSubmit(async (data) => {
             try {
-              console.log("Form data:", data); // Log the form data for debugging
-              await axios.post("/api/register", data);
+              await axios.post("/api/user", data);
               router.push("/");
             } catch (error) {
               setFieldError("An unexpected error has occurred");
