@@ -16,9 +16,9 @@ export default async function Home() {
   return (
     <>
       <NavBar />
-      <div className="grid grid-rows-auto gap-5 lg:grid-cols-3 content-stretch container mx-auto">
+      <div className="grid grid-rows-auto gap-5 lg:grid-cols-[2fr_4fr] content-stretch container mx-auto">
         <LoginForm />
-        <div className="lg:col-span-2">
+        <div>
           <h1 className="mb-6 divider divider-start">
             2025 Final Year Project Management System
           </h1>

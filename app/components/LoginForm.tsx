@@ -48,7 +48,6 @@ const LoginForm = () => {
               placeholder="mail@site.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
             />
           </label>
         </fieldset>
@@ -60,7 +59,6 @@ const LoginForm = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
             />
           </label>
         </fieldset>
@@ -68,14 +66,6 @@ const LoginForm = () => {
           Login
         </button>
       </form>
-      <div className="divider">OR</div>
-      <button
-        type="button"
-        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-        className="btn bg-white text-base-100 w-full"
-      >
-        Sign in with Google
-      </button>
     </div>
   );
 };
