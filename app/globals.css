@@ -22,12 +22,12 @@ body {
 
 @layer base {
   h1 {
-    @apply font-extrabold text-2xl;
+    @apply font-extrabold text-3xl;
   }
   h2 {
-    @apply font-bold text-3xl
+    @apply font-bold text-2xl
   }
   h3 {
-    @apply font-bold text-lg
+    @apply font-bold text-xl
   }
 }

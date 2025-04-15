@@ -49,9 +49,9 @@ const NavBar = () => {
             </ul>
           </div>
           {/* Logo and Text */}
-          <Link href="/" className="btn btn-ghost text-xl space-x-2">
+          <Link href="/" className="btn btn-ghost space-x-2">
             <Image src="/ub-logo.png" alt="UB logo" width={28} height={28} />
-            <h1 className="font-bungee">Project Hub</h1>
+            <h1 className="font-bungee text-2xl">Project Hub</h1>
           </Link>
         </div>
         {/* Navbar middle */}
