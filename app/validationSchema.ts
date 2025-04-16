@@ -47,8 +47,7 @@ export const updateAnnouncement = z.object({
   description: z.string().min(1, 'Announcement Description is Required!').optional(),
 })
 
-// Comment Schema
+// create comment schema
 export const createCommentSchema = z.object({
-    comment: z.string().min(1, 'Comment is Required!'),
-    status: z.enum(["PENDING", "APPROVED", "REJECTED", "COMPLETED"]),
+    comment: z.string().min(1, 'Comment is Required!')
 });

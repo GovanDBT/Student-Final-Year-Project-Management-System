@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import classnames from "classnames";
 import ReactMarkdown from "react-markdown";
-import ResponseModal from "../../../components/ResponseModal";
+import CommentModal from "../../../components/CommentModal";
 import CommentsCard from "../../../../components/CommentsCard";
 import ProjectStatusModel from "@/app/dashboard/components/ProjectStatusModel";
 
@@ -29,7 +29,7 @@ const ProjectDetailsPage = async ({ params }: Props) => {
   if (!project) return notFound();
 
   const comments = await prisma.comment.findMany({
-    where: { userId: project.supervisorId },
+    where: { projectId: parseInt(params.id) },
     include: {
       user: {
         select: { name: true },
@@ -53,7 +53,7 @@ const ProjectDetailsPage = async ({ params }: Props) => {
         </ul>
       </div>
       {/* Headers */}
-      <div className="flex justify-between">
+      <div className="md:flex justify-between">
         <h1 className="text-5xl">
           {project.title}{" "}
           <span className="btn text-sm italic">
@@ -61,9 +61,9 @@ const ProjectDetailsPage = async ({ params }: Props) => {
           </span>
         </h1>
         {/* Buttons */}
-        <div className="flex space-x-10">
+        <div className="flex justify-between md:space-x-10 my-4 md:my-0">
           <ProjectStatusModel projectId={project.id} />
-          <ResponseModal
+          <CommentModal
             projectId={project.id}
             author={project.student?.name ?? ""}
           />

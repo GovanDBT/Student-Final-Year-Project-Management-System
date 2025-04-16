@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import classnames from "classnames";
 import ReactMarkdown from "react-markdown";
-import ResponseModal from "../../../components/ResponseModal";
+import CommentModal from "../../../components/CommentModal";
 import CommentsCard from "../../../../components/CommentsCard";
 
 interface Props {
@@ -57,7 +57,7 @@ const ProjectDetailsPage = async ({ params }: Props) => {
             by: {project.student?.name}
           </span>
         </h1>
-        <ResponseModal
+        <CommentModal
           projectId={project.id}
           author={project.student?.name ?? ""}
         />

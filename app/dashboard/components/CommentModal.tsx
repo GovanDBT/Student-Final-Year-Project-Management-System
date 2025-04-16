@@ -14,12 +14,13 @@ interface Props {
   author?: string;
 }
 
-const ResponseModal = ({ projectId, author }: Props) => {
+const CommentModal = ({ projectId, author }: Props) => {
   const [fieldError, setFieldError] = useState(""); // error hook
   const router = useRouter(); // router
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<CommentForm>({
     resolver: zodResolver(createCommentSchema),
@@ -28,19 +29,19 @@ const ResponseModal = ({ projectId, author }: Props) => {
     <div>
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
       <button
-        className="btn btn-primary"
+        className="btn btn-success"
         onClick={() =>
           (
             document.getElementById("my_modal_3") as HTMLDialogElement
           )?.showModal()
         }
       >
-        Send Response
+        Comment
       </button>
       <dialog id="my_modal_3" className="modal">
         <div className="modal-box">
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
+            {/* close modal button */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕
             </button>
@@ -63,14 +64,12 @@ const ResponseModal = ({ projectId, author }: Props) => {
               <span>{fieldError}</span>
             </div>
           )}
-          <h2 className="font-bold text-xl mb-2">
-            Response to {author}'s Project
-          </h2>
+          <h2 className="font-bold mb-2">Comment on {author}'s Project</h2>
           <form
             onSubmit={handleSubmit(async (data) => {
               try {
-                await axios.patch("/api/projects/" + projectId, data);
-                await axios.post("/api/projects/" + projectId, data);
+                await axios.post(`/api/project/${projectId}/comment`, data);
+                reset();
                 router.refresh();
               } catch (error) {
                 setFieldError("An unexpected error has occurred");
@@ -78,17 +77,6 @@ const ResponseModal = ({ projectId, author }: Props) => {
             })}
             className="space-y-5"
           >
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend text-sm">
-                Project Status
-              </legend>
-              <select className="select w-full" {...register("status")}>
-                <option value={"PENDING"}>Pending</option>
-                <option value={"APPROVED"}>Approved</option>
-                <option value={"REJECTED"}>Rejected</option>
-                <option value={"COMPLETED"}>Completed</option>
-              </select>
-            </fieldset>
             <fieldset className="fieldset">
               <legend className="fieldset-legend text-sm">Leave Comment</legend>
               <textarea
@@ -101,7 +89,7 @@ const ResponseModal = ({ projectId, author }: Props) => {
               <p className="text-red-600 text-sm">{errors.comment?.message}</p>
             )}
             <button type="submit" className="btn btn-primary text-wrap">
-              Sent Response
+              Sent Comment
             </button>
           </form>
         </div>
@@ -110,4 +98,4 @@ const ResponseModal = ({ projectId, author }: Props) => {
   );
 };
 
-export default ResponseModal;
+export default CommentModal;
