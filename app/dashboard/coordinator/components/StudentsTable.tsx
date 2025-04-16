@@ -36,6 +36,7 @@ const StudentsTable = async () => {
             <th className="hidden md:table-cell">Status</th>
           </tr>
         </thead>
+        {/* body */}
         <tbody>
           {projects.map((project) => (
             <tr key={project.id}>
@@ -61,7 +62,11 @@ const StudentsTable = async () => {
               <td>{project.student?.name}</td>
               <td className="hidden md:table-cell">{project.studentId}</td>
               <td className="hidden md:table-cell">
-                {project.dateCreated.toLocaleDateString()}
+                {new Intl.DateTimeFormat("en-US", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                }).format(new Date(project.dateCreated))}
               </td>
               <td
                 className={classnames({

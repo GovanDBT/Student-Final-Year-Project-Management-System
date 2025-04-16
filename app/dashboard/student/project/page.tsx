@@ -72,6 +72,7 @@ export default async function ProjectPage() {
       )}
       {project?.studentId && (
         <div>
+          {/* Breadcrumb */}
           <div className="breadcrumbs text-sm mb-2">
             <ul>
               <li>
@@ -82,6 +83,7 @@ export default async function ProjectPage() {
               <li>Project ID: {project.id}</li>
             </ul>
           </div>
+          {/* Header */}
           <div className="flex justify-between">
             <h1 className="text-5xl">
               {project.title}{" "}
@@ -111,8 +113,9 @@ export default async function ProjectPage() {
             </div>
             <p className="font-bold mt-2">{comments.length} comments</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="md:col-span-2">
+          {/* Content */}
+          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4">
+            <div>
               <h3 className="font-bold mb-3">Project Description:</h3>
               <div className="prose card bg-base-200 shadow-sm p-5 border-1 border-white/10 max-w-none mb-5">
                 <ReactMarkdown>{project.description}</ReactMarkdown>
@@ -171,6 +174,7 @@ export default async function ProjectPage() {
               <div className="divider my-5"></div>
             </div>
           </div>
+          {/* Comments */}
           <div className="my-5 space-y-3">
             <p className="font-bold mb-2">Comments:</p>
             {comments.map((comment) => (

@@ -40,6 +40,7 @@ const ProjectDetailsPage = async ({ params }: Props) => {
   });
   return (
     <div className="container mx-auto">
+      {/* Breadcrumb */}
       <div className="breadcrumbs text-sm mb-2">
         <ul>
           <li>
@@ -50,6 +51,7 @@ const ProjectDetailsPage = async ({ params }: Props) => {
           <li>Project ID: {project.id}</li>
         </ul>
       </div>
+      {/* Headers */}
       <div className="flex justify-between">
         <h1 className="text-5xl">
           {project.title}{" "}
@@ -78,40 +80,57 @@ const ProjectDetailsPage = async ({ params }: Props) => {
         </div>
         <p className="font-bold mt-2">{comments.length} comments</p>
       </div>
-      <p>
-        <span className="font-bold">Student ID:</span> {project.student?.userId}
-      </p>
-      <div className="divider my-1"></div>
-      <p>
-        <span className="font-bold">Student Email:</span>{" "}
-        {project.student?.email}
-      </p>
-      <div className="divider my-1"></div>
-      <p>
-        <span className="font-bold">Phone Number:</span>{" "}
-        {project.student?.phone}
-      </p>
-      <div className="divider my-1"></div>
-      <p>
-        <span className="font-bold">Programme:</span>{" "}
-        {project.student?.programme}
-      </p>
-      <div className="divider my-1"></div>
-      <p>
-        <span className="font-bold">Date Created:</span>{" "}
-        {project.dateCreated.toLocaleDateString()}
-      </p>
-      <div className="divider my-1"></div>
-      <p>
-        <span className="font-bold">Last Update:</span>{" "}
-        {project.dateUpdated?.toLocaleDateString()}
-      </p>
-      <div className="divider my-1"></div>
-      <p className="font-bold mt-4 mb-1">Project Description:</p>
-      <div className="prose card bg-base-200 shadow-sm p-5 border-1 border-white/10 max-w-none mb-5">
-        <ReactMarkdown>{project.description}</ReactMarkdown>
+      {/* Content */}
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4">
+        <div>
+          <div className="prose card bg-base-200 shadow-sm p-5 border-1 border-white/10 max-w-none mb-5">
+            <ReactMarkdown>{project.description}</ReactMarkdown>
+          </div>
+        </div>
+        <div>
+          <p>
+            <span className="font-bold">Student ID:</span>{" "}
+            {project.student?.userId}
+          </p>
+          <div className="divider my-1"></div>
+          <p>
+            <span className="font-bold">Student Email:</span>{" "}
+            {project.student?.email}
+          </p>
+          <div className="divider my-1"></div>
+          <p>
+            <span className="font-bold">Phone Number:</span>{" "}
+            {project.student?.phone}
+          </p>
+          <div className="divider my-1"></div>
+          <p>
+            <span className="font-bold">Programme:</span>{" "}
+            {project.student?.programme}
+          </p>
+          <div className="divider my-1"></div>
+          <p>
+            <span className="font-bold">Date Created:</span>{" "}
+            {new Intl.DateTimeFormat("en-US", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            }).format(new Date(project.dateCreated))}
+          </p>
+          <div className="divider my-1"></div>
+          <p>
+            <span className="font-bold">Last Update:</span>{" "}
+            {new Intl.DateTimeFormat("en-US", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            }).format(
+              project.dateUpdated ? new Date(project.dateUpdated) : new Date()
+            )}
+          </p>
+        </div>
       </div>
-      <div className="my-10 space-y-3">
+      {/* Comments */}
+      <div className="space-y-3">
         <p className="font-bold mb-2">Comments:</p>
         {comments.map((comment) => (
           <CommentsCard

@@ -10,7 +10,7 @@ export default async function Dashboard() {
         👋 Hello {session && <span>{session.user!.name} (Coordinator)</span>}
       </h1>
       <div>
-        <h1 className="divider divider-start">My Students</h1>
+        <h2 className="divider divider-start">My Students</h2>
         <StudentsTable />
       </div>
     </div>
