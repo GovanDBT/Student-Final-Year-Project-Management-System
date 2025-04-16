@@ -9,7 +9,7 @@ const ProjectsPage = async () => {
     <div className="container mx-auto">
       <h1 className="mb-4">Projects Proposal List</h1>
       <div className="card bg-base-200 w-fit px-5 py-2 text-lg border-1 border-base-content/10">
-        <p>
+        <p className="m-0">
           <span className="font-black">Number of Projects:</span>{" "}
           {totalProjects}
         </p>
