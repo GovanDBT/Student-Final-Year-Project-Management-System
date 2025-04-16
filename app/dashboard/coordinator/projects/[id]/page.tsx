@@ -5,6 +5,7 @@ import classnames from "classnames";
 import ReactMarkdown from "react-markdown";
 import ResponseModal from "../../../components/ResponseModal";
 import CommentsCard from "../../../../components/CommentsCard";
+import ProjectStatusModel from "@/app/dashboard/components/ProjectStatusModel";
 
 interface Props {
   params: { id: string };
@@ -59,10 +60,14 @@ const ProjectDetailsPage = async ({ params }: Props) => {
             by: {project.student?.name}
           </span>
         </h1>
-        <ResponseModal
-          projectId={project.id}
-          author={project.student?.name ?? ""}
-        />
+        {/* Buttons */}
+        <div className="flex space-x-10">
+          <ProjectStatusModel projectId={project.id} />
+          <ResponseModal
+            projectId={project.id}
+            author={project.student?.name ?? ""}
+          />
+        </div>
       </div>
       <div className="flex justify-between">
         <div className="flex gap-10 mt-2 mb-5">
