@@ -5,6 +5,7 @@ import classnames from "classnames";
 import ReactMarkdown from "react-markdown";
 import CommentModal from "../../../components/CommentModal";
 import CommentsCard from "../../../../components/CommentsCard";
+import ProjectStatusModel from "@/app/dashboard/components/ProjectStatusModel";
 
 interface Props {
   params: { id: string };
@@ -28,7 +29,7 @@ const ProjectDetailsPage = async ({ params }: Props) => {
   if (!project) return notFound();
 
   const comments = await prisma.comment.findMany({
-    where: { userId: project.supervisorId },
+    where: { projectId: parseInt(params.id) },
     include: {
       user: {
         select: { name: true },
@@ -40,6 +41,7 @@ const ProjectDetailsPage = async ({ params }: Props) => {
   });
   return (
     <div className="container mx-auto">
+      {/* Breadcrumb */}
       <div className="breadcrumbs text-sm mb-2">
         <ul>
           <li>
@@ -50,17 +52,22 @@ const ProjectDetailsPage = async ({ params }: Props) => {
           <li>Project ID: {project.id}</li>
         </ul>
       </div>
-      <div className="flex justify-between">
+      {/* Headers */}
+      <div className="md:flex justify-between">
         <h1 className="text-5xl">
           {project.title}{" "}
           <span className="btn text-sm italic">
             by: {project.student?.name}
           </span>
         </h1>
-        <CommentModal
-          projectId={project.id}
-          author={project.student?.name ?? ""}
-        />
+        {/* Buttons */}
+        <div className="flex justify-between md:space-x-10 my-4 md:my-0">
+          <ProjectStatusModel projectId={project.id} />
+          <CommentModal
+            projectId={project.id}
+            author={project.student?.name ?? ""}
+          />
+        </div>
       </div>
       <div className="flex justify-between">
         <div className="flex gap-10 mt-2 mb-5">
@@ -78,40 +85,57 @@ const ProjectDetailsPage = async ({ params }: Props) => {
         </div>
         <p className="font-bold mt-2">{comments.length} comments</p>
       </div>
-      <p>
-        <span className="font-bold">Student ID:</span> {project.student?.userId}
-      </p>
-      <div className="divider my-1"></div>
-      <p>
-        <span className="font-bold">Student Email:</span>{" "}
-        {project.student?.email}
-      </p>
-      <div className="divider my-1"></div>
-      <p>
-        <span className="font-bold">Phone Number:</span>{" "}
-        {project.student?.phone}
-      </p>
-      <div className="divider my-1"></div>
-      <p>
-        <span className="font-bold">Programme:</span>{" "}
-        {project.student?.programme}
-      </p>
-      <div className="divider my-1"></div>
-      <p>
-        <span className="font-bold">Date Created:</span>{" "}
-        {project.dateCreated.toLocaleDateString()}
-      </p>
-      <div className="divider my-1"></div>
-      <p>
-        <span className="font-bold">Last Update:</span>{" "}
-        {project.dateUpdated?.toLocaleDateString()}
-      </p>
-      <div className="divider my-1"></div>
-      <p className="font-bold mt-4 mb-1">Project Description:</p>
-      <div className="prose card bg-base-200 shadow-sm p-5 border-1 border-white/10 max-w-none mb-5">
-        <ReactMarkdown>{project.description}</ReactMarkdown>
+      {/* Content */}
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4">
+        <div>
+          <div className="prose card bg-base-200 shadow-sm p-5 border-1 border-white/10 max-w-none mb-5">
+            <ReactMarkdown>{project.description}</ReactMarkdown>
+          </div>
+        </div>
+        <div>
+          <p>
+            <span className="font-bold">Student ID:</span>{" "}
+            {project.student?.userId}
+          </p>
+          <div className="divider my-1"></div>
+          <p>
+            <span className="font-bold">Student Email:</span>{" "}
+            {project.student?.email}
+          </p>
+          <div className="divider my-1"></div>
+          <p>
+            <span className="font-bold">Phone Number:</span>{" "}
+            {project.student?.phone}
+          </p>
+          <div className="divider my-1"></div>
+          <p>
+            <span className="font-bold">Programme:</span>{" "}
+            {project.student?.programme}
+          </p>
+          <div className="divider my-1"></div>
+          <p>
+            <span className="font-bold">Date Created:</span>{" "}
+            {new Intl.DateTimeFormat("en-US", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            }).format(new Date(project.dateCreated))}
+          </p>
+          <div className="divider my-1"></div>
+          <p>
+            <span className="font-bold">Last Update:</span>{" "}
+            {new Intl.DateTimeFormat("en-US", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            }).format(
+              project.dateUpdated ? new Date(project.dateUpdated) : new Date()
+            )}
+          </p>
+        </div>
       </div>
-      <div className="my-10 space-y-3">
+      {/* Comments */}
+      <div className="space-y-3">
         <p className="font-bold mb-2">Comments:</p>
         {comments.map((comment) => (
           <CommentsCard
