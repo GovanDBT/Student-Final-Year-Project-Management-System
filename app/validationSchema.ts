@@ -35,14 +35,15 @@ export const updateProjectSchema = z.object({
   status: z.string().optional()
 })
 
-// announcement schema
+// create announcement schema
 export const createAnnouncementSchema = z.object({
   title: z.string().min(1, 'Announcement Title is Required!'),
   description: z.string().min(1, 'Announcement Description is Required!'),
   coordinatorId: z.string().min(1, 'Coordinator Required!').optional()
 })
 
-export const updateAnnouncement = z.object({
+// update announcement schema
+export const updateAnnouncementSchema = z.object({
   title: z.string().min(1, 'Announcement Title is Required!').optional(),
   description: z.string().min(1, 'Announcement Description is Required!').optional(),
 })

@@ -52,10 +52,18 @@ const AnnouncementsListTable = async () => {
               </td>
               <td>{announcement.coordinator.name}</td>
               <td className="hidden md:table-cell">
-                {announcement.dateCreated.toLocaleDateString()}
+                {new Intl.DateTimeFormat("en-US", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                }).format(new Date(announcement.dateCreated))}
               </td>
               <td className="hidden md:table-cell">
-                {announcement.dateUpdated.toLocaleDateString()}
+                {new Intl.DateTimeFormat("en-US", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                }).format(new Date(announcement.dateUpdated))}
               </td>
             </tr>
           ))}

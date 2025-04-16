@@ -73,10 +73,10 @@ const AnnouncementForm = ({ announcement }: Props) => {
         onSubmit={handleSubmit(async (data) => {
           try {
             if (announcement) {
-              await axios.patch("/api/announcements/" + announcement.id, data);
+              await axios.patch("/api/announcement/" + announcement.id, data);
               setFieldSuccess("Announcement Successfully Updated!");
             } else {
-              await axios.post("/api/announcements", data);
+              await axios.post("/api/announcement", data);
               setFieldSuccess("Announcement Successfully Posted!");
               reset(); // clears form
               router.refresh();

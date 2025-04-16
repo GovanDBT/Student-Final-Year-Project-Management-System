@@ -1,4 +1,4 @@
-import { updateAnnouncement } from "@/app/validationSchema";
+import { updateAnnouncementSchema } from "@/app/validationSchema";
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -8,7 +8,7 @@ interface Props {
 
 export async function PATCH(request: NextRequest, { params }: Props) {
     const body = await request.json();
-    const validation = updateAnnouncement.safeParse(body);
+    const validation = updateAnnouncementSchema.safeParse(body);
     if (!validation.success) 
         return NextResponse.json(validation.error.format(), {status: 400})
 
