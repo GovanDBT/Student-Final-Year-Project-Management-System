@@ -7,6 +7,9 @@ const DeadlinesTable = async () => {
     include: {
       coordinator: true,
     },
+    orderBy: {
+      deadlineDate: "desc",
+    },
   });
   return (
     <div className="rounded-box border border-base-content/5 bg-base-200">
@@ -27,7 +30,7 @@ const DeadlinesTable = async () => {
               <td>
                 <Link
                   className="link link-success"
-                  href={`/dashboard/coordinator/announcements/${deadline.id}`}
+                  href={`/dashboard/coordinator/deadlines/${deadline.id}`}
                 >
                   {deadline.title}
                 </Link>

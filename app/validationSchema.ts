@@ -62,3 +62,12 @@ export const createDeadlineSchema = z.object({
   coordinatorId: z.string().optional(),
   isSubmittable: z.string().optional(),
 })
+
+export const updateDeadlineSchema = z.object({
+  title: z.string().min(1, 'Deadline Title is Required!'),
+  description: z.string().min(1, 'Deadline Description is Required!').max(150, 'Deadline Description is too long!'),
+  deadlineDate: z.string()
+    .refine((value) => !isNaN(Date.parse(value)), { message: "Invalid date format" })
+    .transform((value) => new Date(value).toISOString()),
+  isSubmittable: z.string().optional(),
+})

@@ -6,10 +6,15 @@ import { createDeadlineSchema } from "@/app/validationSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { Deadline } from "@prisma/client";
 
 type FormData = z.infer<typeof createDeadlineSchema>;
 
-const DeadlineForm = () => {
+interface Props {
+  deadline?: Deadline;
+}
+
+const DeadlineForm = ({ deadline }: Props) => {
   const [fieldError, setFieldError] = useState(""); // error hook
   const [fieldSuccess, setFieldSuccess] = useState(""); // error hook
   const router = useRouter(); // router
@@ -25,10 +30,15 @@ const DeadlineForm = () => {
   // submit function
   const onSubmit = async (data: FormData) => {
     try {
-      await axios.post("/api/deadline", data);
-      setFieldSuccess("Deadline Successfully Posted!");
-      reset(); // clears form
-      router.refresh();
+      if (deadline) {
+        await axios.patch("/api/deadline/" + deadline.id, data);
+        setFieldSuccess("Deadline Successfully Updated!");
+      } else {
+        await axios.post("/api/deadline", data);
+        setFieldSuccess("Deadline Successfully Posted!");
+        reset(); // clears form
+        router.refresh();
+      }
     } catch (error) {
       setFieldError("An unexpected error has occurred");
     }
@@ -75,7 +85,7 @@ const DeadlineForm = () => {
         </div>
       )}
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
         <h2>Deadlines Form</h2>
         {/* Deadline Title */}
         <div className="mb-2">
@@ -84,6 +94,7 @@ const DeadlineForm = () => {
             <input
               type="text"
               className="input w-full"
+              defaultValue={deadline?.title}
               placeholder="e.g. Beta Version Deadline"
               {...register("title")}
             />
@@ -100,6 +111,7 @@ const DeadlineForm = () => {
             </legend>
             <textarea
               className="textarea w-full"
+              defaultValue={deadline?.description ?? ""}
               placeholder="e.g. Expected to submit documentation, presentation slide, ..."
               {...register("description")}
             ></textarea>
@@ -117,6 +129,7 @@ const DeadlineForm = () => {
             <legend className="fieldset-legend text-sm">Deadline Date</legend>
             <input
               type="datetime-local"
+              defaultValue={deadline?.deadlineDate?.toISOString().slice(0, 16)}
               className="input w-full"
               {...register("deadlineDate")}
             />
@@ -131,14 +144,22 @@ const DeadlineForm = () => {
             <legend className="fieldset-legend text-sm">
               Is Submission Expected?
             </legend>
-            <select className="select w-full" {...register("isSubmittable")}>
+            <select
+              className="select w-full"
+              defaultValue={
+                deadline?.isSubmittable !== undefined
+                  ? String(deadline.isSubmittable)
+                  : undefined
+              }
+              {...register("isSubmittable")}
+            >
               <option value="false">Non-submittable</option>
               <option value="true">Submittable</option>
             </select>
           </fieldset>
         </div>
         <button type="submit" className="btn btn-primary">
-          Set Deadline
+          {deadline ? "Update Deadline" : "Set Deadline"}
         </button>
       </form>
     </>
