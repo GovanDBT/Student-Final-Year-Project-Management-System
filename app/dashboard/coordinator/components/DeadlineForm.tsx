@@ -32,7 +32,7 @@ const DeadlineForm = () => {
         <div className="mb-3">
           <fieldset className="fieldset">
             <legend className="fieldset-legend text-sm">Deadline Date</legend>
-            <input type="date" className="input w-full" />
+            <input type="datetime-local" className="input w-full" />
           </fieldset>
         </div>
         <div className="mb-8">

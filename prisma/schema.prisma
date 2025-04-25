@@ -128,13 +128,16 @@ model Feedback {
 }
 
 model Deadline {
-  id            Int      @id @unique @default(autoincrement())
+  id            Int       @id @unique @default(autoincrement())
   coordinatorId String
   title         String
   description   String?
   deadlineDate  DateTime
+  isSubmittable Boolean   @default(false)
+  dateCreated   DateTime  @default(now())
+  dateUpdated   DateTime? @updatedAt
   // relationships
-  coordinator   User     @relation(fields: [coordinatorId], references: [id])
+  coordinator   User      @relation(fields: [coordinatorId], references: [id])
 
   @@map("deadlines")
 }

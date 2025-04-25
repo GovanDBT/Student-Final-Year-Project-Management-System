@@ -52,3 +52,10 @@ export const updateAnnouncementSchema = z.object({
 export const createCommentSchema = z.object({
     comment: z.string().min(1, 'Comment is Required!')
 });
+
+export const createDeadlineSchema = z.object({
+  title: z.string().min(1, 'Deadline Title is Required!'),
+  description: z.string().min(1, 'Deadline Description is Required!'),
+  deadlineDate: z.string().datetime(),
+  coordinatorId: z.string().optional()
+})
