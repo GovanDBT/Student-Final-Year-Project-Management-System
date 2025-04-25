@@ -1,5 +1,6 @@
 import React from "react";
 import DeadlineForm from "../components/DeadlineForm";
+import DeadlinesTable from "../components/DeadlinesTable";
 
 const DeadlinesPage = () => {
   return (
@@ -10,7 +11,10 @@ const DeadlinesPage = () => {
         <div>
           <DeadlineForm />
         </div>
-        <h2 className="md:border-l-1 md:pl-5 ">Deadline Table</h2>
+        <div className="md:border-l-1 md:pl-5 ">
+          <h2 className="mb-4">Deadline Table</h2>
+          <DeadlinesTable />
+        </div>
       </div>
     </div>
   );
