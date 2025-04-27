@@ -3,7 +3,7 @@ import { authOptions } from "../../api/auth/[...nextauth]/route";
 import { prisma } from "@/prisma/client";
 import classnames from "classnames";
 
-import SubmissionCountdown from "@/app/components/SubmissionCountdown";
+import DeadlineCard from "@/app/components/DeadlineCard";
 import Announcement from "@/app/components/Announcement";
 import Link from "next/link";
 
@@ -14,6 +14,7 @@ export default async function Dashboard() {
     select: { userId: true },
   });
 
+  // find project
   const project = await prisma.project.findUnique({
     where: { studentId: currentUserId?.userId ?? undefined },
     include: {
@@ -26,6 +27,7 @@ export default async function Dashboard() {
     },
   });
 
+  // get all announcements
   const announcements = await prisma.announcement.findMany({
     include: {
       coordinator: true,
@@ -35,27 +37,60 @@ export default async function Dashboard() {
     },
   });
 
+  // get all deadlines
+  const deadlines = await prisma.deadline.findMany();
+
+  // Get the current date
+  const now = new Date();
+
+  // Find the closest and furthest deadlines
+  const sortedDeadlines = deadlines.sort(
+    (a, b) =>
+      new Date(a.deadlineDate).getTime() - new Date(b.deadlineDate).getTime()
+  );
+
+  const closestDeadline = sortedDeadlines.find(
+    (deadline) => new Date(deadline.deadlineDate) > now
+  );
+
+  const furthestDeadline = sortedDeadlines[sortedDeadlines.length - 1];
+
   return (
     <div className="container mx-auto">
       <h1 className="text-4xl">
         👋 Hello {session && <span>{session.user!.name}</span>}
       </h1>
       <div className="md:flex items-start gap-2 lg:gap-5 my-5">
-        <SubmissionCountdown
-          title="Days till next submission"
-          days={11}
-          desc="Project proposal - documentation of introduction, literature review, and system analysis"
-        />
-        <SubmissionCountdown
-          title="Days till final year presentation"
-          days={45}
-          desc="Presentation of project - including presentation slides, documentation, and implementation"
-        />
-        <SubmissionCountdown
-          title="Days till final year presentation"
-          days={45}
-          desc="Presentation of project - including presentation slides, documentation, and implementation"
-        />
+        {closestDeadline && (
+          <DeadlineCard
+            title={
+              closestDeadline.description?.toString() ||
+              "No description available"
+            }
+            date={closestDeadline.deadlineDate.toDateString()}
+            days={Math.ceil(
+              (new Date(closestDeadline.deadlineDate).getTime() -
+                now.getTime()) /
+                (1000 * 60 * 60 * 24)
+            )}
+            desc={closestDeadline.description?.toString()}
+          />
+        )}
+        {furthestDeadline && (
+          <DeadlineCard
+            title={
+              furthestDeadline.description?.toString() ||
+              "No description available"
+            }
+            date={furthestDeadline.deadlineDate.toDateString()}
+            days={Math.ceil(
+              (new Date(furthestDeadline.deadlineDate).getTime() -
+                now.getTime()) /
+                (1000 * 60 * 60 * 24)
+            )}
+            desc={furthestDeadline.description?.toString()}
+          />
+        )}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-5 my-5">
         {/** Project Overview */}
