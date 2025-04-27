@@ -103,9 +103,11 @@ model Comment {
 model Submission {
   id            Int        @id @unique @default(autoincrement())
   projectId     Int
+  title         String
   fileURL       String
-  description   String
+  description   String?
   dateSubmitted DateTime   @default(now())
+  dateUpdated   DateTime?  @updatedAt
   // relationships
   project       Project    @relation(fields: [projectId], references: [id])
   Feedback      Feedback[]

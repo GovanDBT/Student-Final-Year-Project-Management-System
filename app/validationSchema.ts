@@ -70,4 +70,11 @@ export const updateDeadlineSchema = z.object({
     .refine((value) => !isNaN(Date.parse(value)), { message: "Invalid date format" })
     .transform((value) => new Date(value).toISOString()),
   isSubmittable: z.string().optional(),
-})
+});
+
+export const createSubmissionSchema = z.object({
+  title: z.string().min(1, 'Submission Title is Required!'),
+  projectId: z.number().min(1, 'Project ID is required'),
+  fileURL: z.string().min(1, 'File is Required!'),
+  description: z.string().optional()
+});
