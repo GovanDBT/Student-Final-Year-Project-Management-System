@@ -2,6 +2,7 @@ import notFound from "@/app/dashboard/supervisor/not-found";
 import { prisma } from "@/prisma/client";
 import Link from "next/link";
 import classnames from "classnames";
+import FeedbackModal from "@/app/dashboard/components/FeedbackModal";
 
 interface Props {
   params: { id: string };
@@ -37,12 +38,7 @@ const SubmissionDetails = async ({ params }: Props) => {
         <h1 className="text-5xl">{submission.deadline.title} Submission</h1>
         {/* Buttons */}
         <div className="flex justify-between md:space-x-10 my-4 md:my-0">
-          {/* <ProjectStatusModel projectId={project.id} />
-          <CommentModal
-            projectId={project.id}
-            author={project.student?.name ?? ""}
-          /> */}
-          <button className="btn btn-primary">Button</button>
+          <FeedbackModal />
         </div>
       </div>
       <div className="divider"></div>

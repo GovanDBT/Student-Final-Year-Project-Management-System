@@ -89,7 +89,7 @@ const CommentModal = ({ projectId, author }: Props) => {
               <p className="text-red-600 text-sm">{errors.comment?.message}</p>
             )}
             <button type="submit" className="btn btn-primary text-wrap">
-              Sent Comment
+              Send Comment
             </button>
           </form>
         </div>
