@@ -24,6 +24,7 @@ const ProjectDetailsPage = async ({ params }: Props) => {
           userId: true,
         },
       },
+      submission: true,
     },
   });
   if (!project) return notFound();
@@ -39,6 +40,13 @@ const ProjectDetailsPage = async ({ params }: Props) => {
       dateCreated: "desc",
     },
   });
+
+  // Fetch the total number of deadlines
+  const totalDeadlines = await prisma.deadline.count();
+
+  // Count the number of submissions for this project
+  const totalSubmissions = project.submission.length;
+
   return (
     <div className="container mx-auto">
       {/* Breadcrumb */}
@@ -83,7 +91,12 @@ const ProjectDetailsPage = async ({ params }: Props) => {
             {project.status}
           </p>
         </div>
-        <p className="font-bold mt-2">{comments.length} comments</p>
+        <div className="flex space-x-10">
+          <p className="font-bold mt-2">{comments.length} comments</p>
+          <p className="font-bold mt-2">
+            {totalSubmissions}/{totalDeadlines} Submissions
+          </p>
+        </div>
       </div>
       {/* Content */}
       <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4">

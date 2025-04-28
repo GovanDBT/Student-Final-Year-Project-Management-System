@@ -77,3 +77,8 @@ export const createSubmissionSchema = z.object({
   fileURL: z.string().url('Enter valid URL').min(1, 'File is Required!'),
   description: z.string().optional()
 });
+
+export const createFeedbackSchema = z.object({
+  title: z.string().min(1, 'Feedback Title is Required!'),
+  description: z.string().min(1, 'Feedback Description is Required!')
+})

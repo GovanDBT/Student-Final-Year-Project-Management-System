@@ -3,6 +3,7 @@ import { prisma } from "@/prisma/client";
 import Link from "next/link";
 import classnames from "classnames";
 import FeedbackModal from "@/app/dashboard/components/FeedbackModal";
+import FeedbackCard from "@/app/components/FeedbackCard";
 
 interface Props {
   params: { id: string };
@@ -17,6 +18,17 @@ const SubmissionDetails = async ({ params }: Props) => {
     },
   });
   if (!submission) return notFound();
+
+  const feedbacks = await prisma.feedback.findMany({
+    where: { submissionId: parseInt(params.id) },
+    include: {
+      supervisor: true,
+    },
+    orderBy: {
+      dateSubmitted: "desc",
+    },
+  });
+
   return (
     <div className="container mx-auto">
       {/* Breadcrumb */}
@@ -38,12 +50,15 @@ const SubmissionDetails = async ({ params }: Props) => {
         <h1 className="text-5xl">{submission.deadline.title} Submission</h1>
         {/* Buttons */}
         <div className="flex justify-between md:space-x-10 my-4 md:my-0">
-          <FeedbackModal />
+          <FeedbackModal
+            author={submission.user.name ?? "Unknown"}
+            submissionId={submission.id}
+          />
         </div>
       </div>
       <div className="divider"></div>
       {/* Content */}
-      <div>
+      <div className="mb-6">
         <p className="mb-0">
           <span className="font-bold">Student Name:</span>{" "}
           {submission.user.name}
@@ -101,6 +116,19 @@ const SubmissionDetails = async ({ params }: Props) => {
           </span>
         </p>
         <div className="divider my-2"></div>
+      </div>
+      {/* Feedbacks */}
+      <div className="space-y-3">
+        <h2 className="font-bold mb-5">Submission Feedbacks</h2>
+        {feedbacks.map((feed) => (
+          <FeedbackCard
+            key={feed.id}
+            title={feed.title}
+            author={feed.supervisor.name ?? "Unknown"}
+            date={feed.dateSubmitted.toLocaleDateString()}
+            description={feed.description}
+          />
+        ))}
       </div>
     </div>
   );

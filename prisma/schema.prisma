@@ -124,7 +124,8 @@ model Feedback {
   id            Int        @id @unique @default(autoincrement())
   supervisorId  String
   submissionId  Int
-  comment       String
+  title         String
+  description   String
   dateSubmitted DateTime   @default(now())
   dateUpdated   DateTime   @updatedAt
   // relationships

@@ -11,7 +11,6 @@ const NavBar = () => {
   const currentPath = usePathname();
   const links = [
     { label: "Dashboard", href: "/dashboard/supervisor" },
-    { label: "My Project", href: "/dashboard/supervisor/project" },
     { label: "Submissions", href: "/dashboard/supervisor/feedback" },
   ];
   return (
