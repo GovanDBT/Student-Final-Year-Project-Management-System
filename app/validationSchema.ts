@@ -73,7 +73,7 @@ export const updateDeadlineSchema = z.object({
 });
 
 export const createSubmissionSchema = z.object({
-  deadlineId: z.number(),
+  deadlineId: z.number().min(1, 'No Deadline Set!'),
   fileURL: z.string().url('Enter valid URL').min(1, 'File is Required!'),
   description: z.string().optional()
 });

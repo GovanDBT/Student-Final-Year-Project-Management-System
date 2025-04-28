@@ -30,6 +30,11 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: "deadline not found!" }, { status: 404 });
     }
 
+    // Calculate the status of the submission
+    const currentDate = new Date();
+    const deadlineDate = new Date(deadline.deadlineDate);
+    const status = currentDate <= deadlineDate ? "On Time" : "Late";
+
     try {
   const newSubmission = await prisma.submission.create({
     data: {
@@ -37,6 +42,7 @@ export async function POST(request: NextRequest) {
       description: body.description,
       fileURL: body.fileURL,
       userId: student.userId ?? "",
+      status: status,
     },
   });
   console.log("New Submission:", newSubmission); // Debugging

@@ -106,6 +106,7 @@ model Submission {
   deadlineId    Int?
   fileURL       String
   description   String?
+  status        String
   dateSubmitted DateTime   @default(now())
   dateUpdated   DateTime?  @updatedAt
   // relationships

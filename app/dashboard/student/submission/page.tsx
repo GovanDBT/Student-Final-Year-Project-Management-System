@@ -1,5 +1,6 @@
 import React from "react";
 import SubmissionForm from "../components/SubmissionForm";
+import SubmissionTable from "../components/SubmissionTable";
 
 const SubmissionPage = () => {
   return (
@@ -7,7 +8,8 @@ const SubmissionPage = () => {
       <h1>Submissions</h1>
       <div className="divider mt-2 mb-6"></div>
       <SubmissionForm />
-      <h2>Submission History</h2>
+      <h2 className="mb-5">Submission History</h2>
+      <SubmissionTable />
     </div>
   );
 };

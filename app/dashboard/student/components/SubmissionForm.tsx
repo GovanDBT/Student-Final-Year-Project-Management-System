@@ -54,6 +54,7 @@ const SubmissionForm = () => {
     try {
       await axios.post("/api/submission", data);
       setFieldSuccess("Submission was Successfully!");
+      router.refresh();
     } catch (error) {
       setFieldError("An unexpected error has occurred!");
     }
@@ -122,7 +123,6 @@ const SubmissionForm = () => {
               {...register("deadlineId", { valueAsNumber: true })}
               onChange={handleDeadlineChange}
             >
-              <option value="report">Report - weekly</option>
               {deadlineTitles?.map((type) => (
                 <option key={type.id} value={type.id}>
                   {type.title} - {new Date(type.deadlineDate).toDateString()}
