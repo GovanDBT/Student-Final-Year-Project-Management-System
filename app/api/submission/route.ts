@@ -24,6 +24,12 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: "Student not found!" }, { status: 404 });
     }
 
+    const project = await prisma.project.findUnique({ where: { studentId: student.userId ?? undefined }, select: { id: true } })
+
+    if (!project) {
+      return NextResponse.json({ error: "Student does not have a project" }, { status: 404 });
+    }
+
     const deadline = await prisma.deadline.findUnique({ where: { id: body.deadlineId } })
     // if student not found
     if (!deadline) {
@@ -36,19 +42,19 @@ export async function POST(request: NextRequest) {
     const status = currentDate <= deadlineDate ? "On Time" : "Late";
 
     try {
-  const newSubmission = await prisma.submission.create({
-    data: {
-      deadlineId: deadline.id,
-      description: body.description,
-      fileURL: body.fileURL,
-      userId: student.userId ?? "",
-      status: status,
-    },
-  });
-  console.log("New Submission:", newSubmission); // Debugging
-  return NextResponse.json(newSubmission, { status: 201 });
-} catch (error) {
-  console.error("Database Error:", error); // Debugging
-  return NextResponse.json({ error: "Failed to create submission" }, { status: 500 });
-}
+      const newSubmission = await prisma.submission.create({
+        data: {
+          deadlineId: deadline.id,
+          description: body.description,
+          fileURL: body.fileURL,
+          userId: student.userId ?? "",
+          status: status,
+          projectId: project.id
+        },
+    });
+    return NextResponse.json(newSubmission, { status: 201 });
+    } catch (error) {
+      console.error("Database Error:", error); // Debugging
+      return NextResponse.json({ error: "Failed to create submission" }, { status: 500 });
+    }
 }

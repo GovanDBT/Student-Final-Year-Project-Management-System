@@ -83,6 +83,7 @@ model Project {
   student      User?         @relation(name: "studentProject", fields: [studentId], references: [userId])
   supervisor   User          @relation(name: "supervisorProjects", fields: [supervisorId], references: [id])
   comment      Comment[]
+  submission   Submission[]
 
   @@map("projects")
 }
@@ -103,7 +104,8 @@ model Comment {
 model Submission {
   id            Int        @id @unique @default(autoincrement())
   userId        String
-  deadlineId    Int?
+  deadlineId    Int
+  projectId     Int
   fileURL       String
   description   String?
   status        String
@@ -111,7 +113,8 @@ model Submission {
   dateUpdated   DateTime?  @updatedAt
   // relationships
   user          User       @relation(fields: [userId], references: [userId])
-  deadline      Deadline?  @relation(fields: [deadlineId], references: [id])
+  deadline      Deadline   @relation(fields: [deadlineId], references: [id])
+  project       Project    @relation(fields: [projectId], references: [id])
   Feedback      Feedback[]
 
   @@map("submissions")
