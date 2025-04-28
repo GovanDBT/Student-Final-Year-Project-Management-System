@@ -10,7 +10,9 @@ export async function GET(request: NextRequest) {
     select: {
         id: true,
         title: true,
-        deadlineDate: true
+        deadlineDate: true,
+        isSubmittable: true,
+        description: true
     }
   });
   return NextResponse.json(deadlineTitle);

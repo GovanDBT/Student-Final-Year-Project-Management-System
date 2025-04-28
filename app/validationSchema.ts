@@ -73,8 +73,7 @@ export const updateDeadlineSchema = z.object({
 });
 
 export const createSubmissionSchema = z.object({
-  title: z.string().min(1, 'Submission Title is Required!'),
-  projectId: z.number().min(1, 'Project ID is required'),
-  fileURL: z.string().min(1, 'File is Required!'),
+  deadlineId: z.number(),
+  fileURL: z.string().url('Enter valid URL').min(1, 'File is Required!'),
   description: z.string().optional()
 });
