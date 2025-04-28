@@ -11,6 +11,7 @@ const NavBar = () => {
   const currentPath = usePathname();
   const links = [
     { label: "Dashboard", href: "/dashboard/coordinator" },
+    { label: "Submissions", href: "/dashboard/coordinator/feedback" },
     { label: "Students", href: "/dashboard/coordinator/students" },
     { label: "Projects", href: "/dashboard/coordinator/projects" },
     { label: "Announcements", href: "/dashboard/coordinator/announcements" },

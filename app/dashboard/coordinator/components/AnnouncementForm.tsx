@@ -87,27 +87,38 @@ const AnnouncementForm = ({ announcement }: Props) => {
         })}
         className="my-5 space-y-8"
       >
-        <div>
-          <input
-            type="text"
-            placeholder="Announcement Title"
-            className="input w-full mb-2"
-            defaultValue={announcement?.title}
-            {...register("title")}
-          />
+        {/* Announcement Title */}
+        <div className="mb-2">
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend text-sm">
+              Announcement Title
+            </legend>
+            <textarea
+              className="textarea w-full"
+              placeholder="e.g. Final presentation moved..."
+              defaultValue={announcement?.title}
+              {...register("title")}
+            ></textarea>
+          </fieldset>
           {errors.title && (
-            <p className="text-red-600">{errors.title.message}</p>
+            <p className="text-red-600 mt-2">{errors.title.message}</p>
           )}
         </div>
-        <div>
-          <textarea
-            className="textarea h-50 w-full mb-2"
-            placeholder="Announcement Description..."
-            defaultValue={announcement?.description}
-            {...register("description")}
-          ></textarea>
+        {/* Announcement Description */}
+        <div className="mb-5">
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend text-sm">
+              Announcement Description
+            </legend>
+            <textarea
+              className="textarea w-full"
+              placeholder="e.g. please be advised to come and collect your papers..."
+              defaultValue={announcement?.description}
+              {...register("description")}
+            ></textarea>
+          </fieldset>
           {errors.description && (
-            <p className="text-red-600">{errors.description.message}</p>
+            <p className="text-red-600 mt-2">{errors.description.message}</p>
           )}
         </div>
         <button type="submit" className="btn btn-primary">

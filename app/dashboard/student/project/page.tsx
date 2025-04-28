@@ -22,6 +22,7 @@ export default async function ProjectPage() {
         },
       },
       student: true,
+      submission: true,
     },
   });
 
@@ -36,6 +37,13 @@ export default async function ProjectPage() {
       dateCreated: "desc",
     },
   });
+
+  // Fetch the total number of deadlines
+  const totalDeadlines = await prisma.deadline.count();
+
+  // Count the number of submissions for this project
+  const totalSubmissions = project?.submission?.length ?? 0;
+
   return (
     <div className="container mx-auto">
       {!project?.studentId && (
@@ -111,7 +119,12 @@ export default async function ProjectPage() {
                 {project.status}
               </p>
             </div>
-            <p className="font-bold mt-2">{comments.length} comments</p>
+            <div className="flex space-x-10">
+              <p className="font-bold mt-2">{comments.length} comments</p>
+              <p className="font-bold mt-2">
+                {totalSubmissions}/{totalDeadlines} Submissions
+              </p>
+            </div>
           </div>
           {/* Content */}
           <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-4">
