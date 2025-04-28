@@ -13,9 +13,9 @@ const NavBar = () => {
     { label: "Dashboard", href: "/dashboard/student" },
     { label: "My Project", href: "/dashboard/student/project" },
     { label: "Submissions", href: "/dashboard/student/submission" },
-    { label: "Marks & Reviews", href: "#" },
+    { label: "Feedbacks", href: "/dashboard/student/feedback" },
     { label: "Timeline", href: "/dashboard/student/timeline" },
-    { label: "Past Projects", href: "/dashboard/student/pastProjects" },
+    { label: "Project Guide", href: "/dashboard/student/guide" },
   ];
   return (
     <nav className="navbar mb-6 bg-base-200 w-full">
