@@ -30,8 +30,13 @@ const SignupForm = () => {
       await axios.post("/api/user", data); // send request
       setFieldSuccess("User Has Been Successfully Registered!"); // show success message
       reset(); // clear input fields
-    } catch (error) {
-      setFieldError("An unexpected error has occurred!"); // show error message
+    } catch (error: any) {
+      // Check if the error response contains a message
+      if (error.response && error.response.data && error.response.data.error) {
+        setFieldError(error.response.data.error); // Set the error message from the API
+      } else {
+        setFieldError("An unexpected error has occurred!"); // Fallback error message
+      }
     }
   };
 

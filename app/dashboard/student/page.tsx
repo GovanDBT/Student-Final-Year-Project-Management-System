@@ -5,6 +5,7 @@ import classnames from "classnames";
 
 import DeadlineCard from "@/app/components/DeadlineCard";
 import Announcement from "@/app/components/Announcement";
+import Calendar from "@/app/components/Calendar";
 import Link from "next/link";
 
 export default async function Dashboard() {
@@ -154,6 +155,7 @@ export default async function Dashboard() {
           <div className="divider divider-start mb-8">
             <h2>Calendar</h2>
           </div>
+          <Calendar />
         </div>
         {/** Announcements */}
         <div>

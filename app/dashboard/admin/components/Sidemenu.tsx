@@ -1,3 +1,4 @@
+"use client";
 import {
   MdAdminPanelSettings,
   MdDashboard,
@@ -10,6 +11,7 @@ import { PiStudentFill, PiUserBold, PiMicrophoneFill } from "react-icons/pi";
 import { FaProjectDiagram } from "react-icons/fa";
 
 import Link from "next/link";
+import LogoutModal from "../../components/LogoutModal";
 
 const Sidemenu = () => {
   return (
@@ -78,10 +80,7 @@ const Sidemenu = () => {
           </a>
         </li>
         <li>
-          <a>
-            <MdLogout />
-            Logout
-          </a>
+          <LogoutModal />
         </li>
       </div>
     </ul>
