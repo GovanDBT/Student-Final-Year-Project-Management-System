@@ -7,12 +7,14 @@ export const createUserSchema = z.object({
   userId: z.string().min(1, "Student ID is required"),
   email: z.string().email("Invalid email address"),
   phone: z.string().min(8, "Phone number must be at least 8 digits"),
+  office: z.string().optional(),
   programme: z.enum([
     "BSC_COMPUTER_SCIENCE",
     "BSC_INFORMATION_TECHNOLOGY",
     "BSC_COMPUTING_WITH_FINANCE",
     "BIS_COMPUTER_INFORMATION_SYSTEMS",
-  ]),
+  ]).optional(),
+  role: z.enum(["SUPERVISOR", "COORDINATOR"]).optional(),
   password: z.string().min(5, "Password must be at least 5 characters"),
   confirmPassword: z.string().min(5, "Confirm password must be at least 5 characters"),
 }).refine((data) => data.password === data.confirmPassword, {

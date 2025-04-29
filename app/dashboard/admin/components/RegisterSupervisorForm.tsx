@@ -28,7 +28,7 @@ const RegisterSupervisorForm = () => {
   const onSubmit = async (data: FormData) => {
     try {
       await axios.post("/api/user/supervisor", data); // send request
-      setFieldSuccess("User Has Been Successfully Registered!"); // show success message
+      setFieldSuccess("Supervisor Has Been Successfully Registered!"); // show success message
       reset(); // clear input fields
     } catch (error: any) {
       // Check if the error response contains a message
@@ -125,7 +125,7 @@ const RegisterSupervisorForm = () => {
               <input
                 type="text"
                 className="input w-full"
-                placeholder="Type your ID number"
+                placeholder="supervisor ID number"
                 {...register("userId")}
               />
               {errors.userId && (
@@ -143,7 +143,7 @@ const RegisterSupervisorForm = () => {
               <input
                 type="email"
                 className="input w-full"
-                placeholder="mail@ub.bw"
+                placeholder="e.g. mail@ub.bw"
                 {...register("email")}
               />
               {errors.email && (
@@ -158,7 +158,7 @@ const RegisterSupervisorForm = () => {
               <input
                 type="text"
                 className="input w-full"
-                placeholder="Phone"
+                placeholder="(+267) ..."
                 {...register("phone")}
               />
               {errors.phone && (
@@ -174,11 +174,11 @@ const RegisterSupervisorForm = () => {
                 type="text"
                 className="input w-full"
                 placeholder="e.g. 247/292"
-                {...register("phone")}
+                {...register("office")}
               />
-              {errors.phone && (
+              {errors.office && (
                 <p className="text-red-600 text-sm mt-2">
-                  {errors.phone.message}
+                  {errors.office.message}
                 </p>
               )}
             </div>
@@ -188,7 +188,7 @@ const RegisterSupervisorForm = () => {
             {/* role */}
             <div className="w-full my-auto">
               <legend className="fieldset-legend">Role</legend>
-              <select className="select w-full" {...register("programme")}>
+              <select className="select w-full" {...register("role")}>
                 <option value={"SUPERVISOR"}>Supervisor</option>
                 <option value={"COORDINATOR"}>Coordinator</option>
               </select>
