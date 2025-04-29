@@ -5,10 +5,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { createUserSchema } from "@/app/validationSchema";
+import { userSchema } from "@/app/validationSchema";
 
 // interface for registration form
-type SignupFormData = z.infer<typeof createUserSchema>;
+type SignupFormData = z.infer<typeof userSchema>;
 
 const SignupForm = () => {
   const [fieldError, setFieldError] = useState(""); // hook for showing errors messages
@@ -21,7 +21,7 @@ const SignupForm = () => {
     reset,
     formState: { errors },
   } = useForm<SignupFormData>({
-    resolver: zodResolver(createUserSchema),
+    resolver: zodResolver(userSchema),
   });
 
   // onSubmit function

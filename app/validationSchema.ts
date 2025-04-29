@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // create user schema
-export const createUserSchema = z.object({
+export const userSchema = z.object({
   firstname: z.string().min(1, "First name is required"),
   lastname: z.string().min(1, "Last name is required"),
   userId: z.string().min(1, "Student ID is required"),

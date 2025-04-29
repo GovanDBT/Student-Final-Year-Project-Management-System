@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
-import { createUserSchema } from "@/app/validationSchema";
+import { userSchema } from "@/app/validationSchema";
 
 // POST /api/users - creates a new user
 export async function POST(request: NextRequest){
     const body = await request.json(); // create request
-    const validation = createUserSchema.safeParse(body); // validates request
+    const validation = userSchema.safeParse(body); // validates request
     if (!validation.success) return NextResponse.json(validation.error.format(), { status: 400 }); // if request validation fails
     // validate existing student ID
     if (body.userId) {

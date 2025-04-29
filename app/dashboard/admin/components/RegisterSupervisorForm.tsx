@@ -5,14 +5,22 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { createUserSchema } from "@/app/validationSchema";
+import { User } from "@prisma/client";
+import { userSchema } from "@/app/validationSchema";
 
 // interface for registration form
-type FormData = z.infer<typeof createUserSchema>;
+type FormData = z.infer<typeof userSchema>;
 
-const RegisterSupervisorForm = () => {
+interface Props {
+  user?: User;
+}
+
+const RegisterSupervisorForm = ({ user }: Props) => {
   const [fieldError, setFieldError] = useState(""); // hook for showing errors messages
   const [fieldSuccess, setFieldSuccess] = useState(""); // hook for showing success messages
+
+  // Split the user's name into first name and last name
+  const [firstName, lastName] = user?.name?.split(" ") ?? ["", ""];
 
   // react hook form
   const {
@@ -21,15 +29,20 @@ const RegisterSupervisorForm = () => {
     reset,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(createUserSchema),
+    resolver: zodResolver(userSchema),
   });
 
   // onSubmit function
   const onSubmit = async (data: FormData) => {
     try {
-      await axios.post("/api/user/supervisor", data); // send request
-      setFieldSuccess("Supervisor Has Been Successfully Registered!"); // show success message
-      reset(); // clear input fields
+      if (user) {
+        await axios.patch("/api/user/supervisor/" + user.id, data);
+        setFieldSuccess("User Successfully Updated!");
+      } else {
+        await axios.post("/api/user/supervisor", data); // send request
+        setFieldSuccess("Supervisor Has Been Successfully Registered!"); // show success message
+        reset(); // clear input fields
+      }
     } catch (error: any) {
       // Check if the error response contains a message
       if (error.response && error.response.data && error.response.data.error) {
@@ -96,6 +109,7 @@ const RegisterSupervisorForm = () => {
                 type="text"
                 className="input w-full"
                 placeholder="firstname"
+                defaultValue={firstName}
                 {...register("firstname")}
               />
               {errors.firstname && (
@@ -111,6 +125,7 @@ const RegisterSupervisorForm = () => {
                 type="text"
                 className="input w-full"
                 placeholder="lastname"
+                defaultValue={lastName}
                 {...register("lastname")}
               />
               {errors.lastname && (
@@ -126,6 +141,7 @@ const RegisterSupervisorForm = () => {
                 type="text"
                 className="input w-full"
                 placeholder="supervisor ID number"
+                defaultValue={user?.userId ?? ""}
                 {...register("userId")}
               />
               {errors.userId && (
@@ -144,6 +160,7 @@ const RegisterSupervisorForm = () => {
                 type="email"
                 className="input w-full"
                 placeholder="e.g. mail@ub.bw"
+                defaultValue={user?.email ?? ""}
                 {...register("email")}
               />
               {errors.email && (
@@ -159,6 +176,7 @@ const RegisterSupervisorForm = () => {
                 type="text"
                 className="input w-full"
                 placeholder="(+267) ..."
+                defaultValue={user?.phone ?? ""}
                 {...register("phone")}
               />
               {errors.phone && (
@@ -174,6 +192,7 @@ const RegisterSupervisorForm = () => {
                 type="text"
                 className="input w-full"
                 placeholder="e.g. 247/292"
+                defaultValue={user?.office ?? ""}
                 {...register("office")}
               />
               {errors.office && (
@@ -188,7 +207,11 @@ const RegisterSupervisorForm = () => {
             {/* role */}
             <div className="w-full my-auto">
               <legend className="fieldset-legend">Role</legend>
-              <select className="select w-full" {...register("role")}>
+              <select
+                className="select w-full"
+                {...register("role")}
+                defaultValue={user?.role ?? ""}
+              >
                 <option value={"SUPERVISOR"}>Supervisor</option>
                 <option value={"COORDINATOR"}>Coordinator</option>
               </select>
@@ -200,6 +223,7 @@ const RegisterSupervisorForm = () => {
                 type="password"
                 className="input w-full"
                 placeholder="Password"
+                defaultValue={user?.password ?? ""}
                 {...register("password")}
               />
               {errors.password && (
@@ -215,6 +239,7 @@ const RegisterSupervisorForm = () => {
                 type="text"
                 className="input w-full"
                 placeholder="Confirm Password"
+                defaultValue={user?.password ?? ""}
                 {...register("confirmPassword")}
               />
               {errors.confirmPassword && (
@@ -225,8 +250,21 @@ const RegisterSupervisorForm = () => {
             </div>
           </div>
 
+          {user && (
+            <div className="flex-row md:flex md:space-x-8 space-y-5 md:space-y-0">
+              {/* role */}
+              <div className="w-50 my-auto">
+                <legend className="fieldset-legend">Active</legend>
+                <select className="select w-full">
+                  <option value={"true"}>Activate</option>
+                  <option value={"false"}>Deactivate</option>
+                </select>
+              </div>
+            </div>
+          )}
+
           <button type="submit" className="btn btn-primary w-4/13 mb-5 mx-auto">
-            Register
+            {user ? "Update User" : "Register"}
           </button>
         </fieldset>
       </form>

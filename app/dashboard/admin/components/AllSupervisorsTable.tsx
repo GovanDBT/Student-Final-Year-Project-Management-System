@@ -22,25 +22,28 @@ const AllSupervisorTable = async () => {
           </tr>
         </thead>
         <tbody>
-          {supervisor.map((student) => (
-            <tr key={student.id}>
+          {supervisor.map((user) => (
+            <tr key={user.id}>
               <td>
-                <Link className="link link-success" href={"#"}>
-                  {student.name}
+                <Link
+                  className="link link-success"
+                  href={`/dashboard/admin/supervisors/${user.id}`}
+                >
+                  {user.name}
                 </Link>
               </td>
-              <td>{student.userId}</td>
-              <td className="hidden md:table-cell">{student.email}</td>
-              <td className="hidden lg:table-cell">{student.phone}</td>
-              <td className="hidden lg:table-cell">{student.office}</td>
+              <td>{user.userId}</td>
+              <td className="hidden md:table-cell">{user.email}</td>
+              <td className="hidden lg:table-cell">{user.phone}</td>
+              <td className="hidden lg:table-cell">{user.office}</td>
               <td
                 className={classnames({
-                  "badge-success": student.isActive === true,
-                  "badge-error": student.isActive === false,
+                  "badge-success": user.isActive === true,
+                  "badge-error": user.isActive === false,
                   "badge badge-soft mt-2": true,
                 })}
               >
-                {student.isActive === true ? "Active" : "Inactive"}
+                {user.isActive === true ? "Active" : "Inactive"}
               </td>
             </tr>
           ))}
