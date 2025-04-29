@@ -47,25 +47,25 @@ const Sidemenu = () => {
             </summary>
             <ul>
               <li>
-                <a>
+                <Link href={"/dashboard/admin/students"}>
                   <PiStudentFill />
                   Students
-                </a>
+                </Link>
               </li>
               <li>
-                <a>
+                <Link href={"/dashboard/admin/supervisors"}>
                   <MdSupervisorAccount size={20} />
                   Supervisors
-                </a>
+                </Link>
               </li>
             </ul>
           </details>
         </li>
         <li>
-          <a>
+          <Link href={"/dashboard/admin/projects"}>
             <FaProjectDiagram />
             Projects
-          </a>
+          </Link>
         </li>
         <li>
           <a>

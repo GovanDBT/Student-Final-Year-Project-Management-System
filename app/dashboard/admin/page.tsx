@@ -27,17 +27,17 @@ export default async function Dashboard() {
           <StatsCard
             title="Registered Students"
             count={totalStudents}
-            link="#"
+            link="/dashboard/admin/students"
           />
           <StatsCard
             title="Supervisors + Coordinators"
             count={totalSupervisors}
-            link="#"
+            link="/dashboard/admin/supervisors"
           />
           <StatsCard
             title="Submitted Projects"
             count={totalProjects}
-            link="#"
+            link="/dashboard/admin/projects"
           />
         </div>
         <h2>My Students Projects:</h2>
