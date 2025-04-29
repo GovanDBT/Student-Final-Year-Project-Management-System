@@ -28,7 +28,7 @@ const Sidemenu = () => {
           </Link>
         </li>
         <li>
-          <Link href={"/dashboard/admin/students"}>
+          <Link href={"/dashboard/admin/myStudents"}>
             <PiStudentFill />
             My Students
           </Link>
