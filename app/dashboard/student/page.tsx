@@ -7,6 +7,7 @@ import DeadlineCard from "@/app/components/DeadlineCard";
 import Announcement from "@/app/components/Announcement";
 import Calendar from "@/app/components/Calendar";
 import Link from "next/link";
+import ActivityCard from "./components/ActivityCard";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
@@ -183,6 +184,19 @@ export default async function Dashboard() {
         <div>
           <div className="divider divider-start mb-8">
             <h2>Activities</h2>
+          </div>
+          <div className="max-h-105 overflow-scroll p-3 border-1 border-secondary/10 rounded-lg">
+            {deadlines && deadlines.length > 0 ? (
+              deadlines.map((d) => (
+                <ActivityCard
+                  key={d.id}
+                  title={d.title}
+                  date={d.deadlineDate.toLocaleDateString()}
+                />
+              ))
+            ) : (
+              <p>No Activities Set</p>
+            )}
           </div>
         </div>
       </div>
