@@ -9,7 +9,7 @@ interface Props {
 const coordinatorLayout = ({ children }: Props) => {
   return (
     <div>
-      <div className="grid grid-cols-[1.1fr_4fr]">
+      <div className="grid grid-cols-[1.1fr_4fr] h-screen">
         <Sidemenu />
         <div>
           <Topmenu />

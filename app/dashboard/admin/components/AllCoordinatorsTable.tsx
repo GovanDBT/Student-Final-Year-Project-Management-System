@@ -16,7 +16,7 @@ const AllCoordinatorsTable = async () => {
             <th>Coordinator Name</th>
             <th>Coordinator ID</th>
             <th className="hidden md:table-cell">Email</th>
-            <th className="hidden lg:table-cell">Phone</th>
+            <th className="hidden lg:table-cell">Phone (+267)</th>
             <th className="hidden lg:table-cell">Office</th>
             <th className="hidden md:table-cell">Status</th>
           </tr>

@@ -15,7 +15,7 @@ import LogoutModal from "../../components/LogoutModal";
 
 const Sidemenu = () => {
   return (
-    <ul className="menu menu-lg bg-base-200 w-full h-screen">
+    <ul className="menu menu-lg bg-base-200 w-full h-full">
       <h2 className="pl-3 flex place-items-center gap-x-2 mt-2">
         <MdAdminPanelSettings /> Admin Dashboard
       </h2>

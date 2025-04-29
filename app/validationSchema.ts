@@ -6,7 +6,7 @@ export const userSchema = z.object({
   lastname: z.string().min(1, "Last name is required"),
   userId: z.string().min(1, "Student ID is required"),
   email: z.string().email("Invalid email address"),
-  phone: z.string().min(8, "Phone number must be at least 8 digits"),
+  phone: z.string().min(5, "Phone number must be at least 5 digits"),
   office: z.string().optional(),
   programme: z.enum([
     "BSC_COMPUTER_SCIENCE",

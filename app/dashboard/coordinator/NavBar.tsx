@@ -50,7 +50,10 @@ const NavBar = () => {
             </ul>
           </div>
           {/* Logo and Text */}
-          <Link href="/" className="btn btn-ghost space-x-2">
+          <Link
+            href="/dashboard/coordinator"
+            className="btn btn-ghost space-x-2"
+          >
             <Image src="/ub-logo.png" alt="UB logo" width={28} height={28} />
             <h1 className="font-bungee text-2xl mt-2">Project Hub</h1>
           </Link>

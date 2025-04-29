@@ -15,7 +15,7 @@ const ProjectStatusModel = ({ projectId }: Props) => {
     <div>
       {/* Button */}
       <button
-        className="btn btn-primary"
+        className="btn btn-primary text-nowrap"
         onClick={() =>
           (document.getElementById("modal") as HTMLDialogElement)?.showModal()
         }

@@ -39,7 +39,7 @@ const SubmissionTable = async () => {
             <tr key={sub.id}>
               <td>{sub.deadline?.title}</td>
               <td className="hidden lg:table-cell">{sub.description}</td>
-              <td className="break-words max-w-xs lg:max-w-none">
+              <td className="break-words max-w-xs">
                 <a
                   href={sub.fileURL}
                   target="_blank"
@@ -59,7 +59,8 @@ const SubmissionTable = async () => {
                 className={classnames({
                   "badge-warning": sub.status === "Late",
                   "badge-success": sub.status === "On Time",
-                  "badge badge-soft hidden md:badge mt-2 ml-4": true,
+                  "badge badge-soft hidden md:badge mt-2 ml-4 text-nowrap":
+                    true,
                 })}
               >
                 {sub.status}

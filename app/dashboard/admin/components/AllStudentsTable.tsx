@@ -16,7 +16,7 @@ const AllStudentsTable = async () => {
             <th>Student Name</th>
             <th>Student ID</th>
             <th className="hidden md:table-cell">Email</th>
-            <th className="hidden lg:table-cell">Phone</th>
+            <th className="hidden lg:table-cell">Phone (+267)</th>
             <th className="hidden lg:table-cell">Programme</th>
             <th className="hidden md:table-cell">Status</th>
           </tr>

@@ -164,20 +164,24 @@ export default async function Dashboard() {
             <h2>Announcements</h2>
           </div>
           <div className="max-h-105 overflow-scroll p-3 border-1 border-secondary/10 rounded-lg">
-            {announcements.map((announcement) => (
-              <Announcement
-                key={announcement.id}
-                title={announcement.title}
-                date={new Intl.DateTimeFormat("en-US", {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                }).format(new Date(announcement.dateCreated))}
-                author={announcement.coordinator.name ?? ""}
-                role={announcement.coordinator.role ?? ""}
-                description={announcement.description}
-              />
-            ))}
+            {announcements && announcements.length > 1 ? (
+              announcements.map((announcement) => (
+                <Announcement
+                  key={announcement.id}
+                  title={announcement.title}
+                  date={new Intl.DateTimeFormat("en-US", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  }).format(new Date(announcement.dateCreated))}
+                  author={announcement.coordinator.name ?? ""}
+                  role={announcement.coordinator.role ?? ""}
+                  description={announcement.description}
+                />
+              ))
+            ) : (
+              <p className="text-center mt-4">No Announcements.</p>
+            )}
           </div>
         </div>
         {/** Activities */}

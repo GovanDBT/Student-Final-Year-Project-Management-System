@@ -27,7 +27,7 @@ export default async function ProjectPage() {
   });
 
   const comments = await prisma.comment.findMany({
-    where: { userId: project?.supervisorId },
+    where: { projectId: project?.id },
     include: {
       user: {
         select: { name: true },
