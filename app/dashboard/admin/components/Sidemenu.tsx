@@ -68,10 +68,10 @@ const Sidemenu = () => {
           </Link>
         </li>
         <li>
-          <a>
+          <Link href={"/dashboard/admin/registerSupervisor"}>
             <MdEditDocument />
             Register Supervisor
-          </a>
+          </Link>
         </li>
         <li>
           <a>
